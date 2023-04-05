@@ -1,0 +1,12 @@
+@import url(../../../node_modules/css-reset-and-normalize/scss/reset-and-normalize.scss);
+
+@import 'media-queries/mobile';
+
+@media screen and (min-width: 576px) {
+    @import 'media-queries/tablet';
+}
+
+@media screen and (min-width: 1200px) {
+    @import 'media-queries/desktop';
+}
+
