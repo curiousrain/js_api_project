@@ -1,6 +1,7 @@
 const containerOfRecipes=document.querySelector('.recipes-container');
 const globalSearchForm=document.querySelector('.search-form');
 const globalSearchInput=document.querySelector('.general-search-input');
+const APIKey='aece9e5aa1324bfcba9e2f87fd6b9178';
 
 function recipeCardLayout(id, image, name) {
 let cardOfRecipe='';
@@ -29,20 +30,34 @@ class RecipeCard {
     }
 }
 
+function receiveInputValue(){
+    globalSearchForm.addEventListener('submit', (evt) => {
+        evt.preventDefault();
+        showSearchResult();
+    } );
+};
+
+globalSearchInput.onchange=receiveInputValue();
+
+
+function clearContent(elementToClear) {
+    elementToClear.innerHTML='';
+}
+
 function showSearchResult() {
-    const searchString=globalSearchInput.value;
-    const url = `https://api.spoonacular.com/recipes/findByIngredients?ingredients=pineapple`;
+    const searchString=globalSearchInput.value.trim().replace(/[ ,]+/g, ',');
+    clearContent(containerOfRecipes);
+    const url = `https://api.spoonacular.com/recipes/complexSearch?query=${searchString}&number=100&apiKey=${APIKey}`;
     fetch(url, {
         method: "GET",
         withCredentials: true,
         headers: {
-            "X-API-Key": "aece9e5aa1324bfcba9e2f87fd6b9178",
             "Content-Type": "application/json"
             }
     })
     .then(resp => resp.json())
     .then(function(data) {
-        data.map(el => {
+        data.results.map(el => {
             let foodCard=new RecipeCard(el.id, el.image, el.title);
             foodCard.displayRecipeCard(foodCard.id, foodCard.image, foodCard.title);
         });
@@ -51,6 +66,4 @@ function showSearchResult() {
         console.log(error); // написать код, чтобы выводилось сообщение "Такой рецепт не найден"
     });
 }
-showSearchResult();
 
-//прописать код для инпута
