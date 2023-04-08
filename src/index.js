@@ -47,7 +47,7 @@ function clearContent(elementToClear) {
 function showSearchResult() {
     const searchString=globalSearchInput.value.trim().replace(/[ ,]+/g, ',');
     clearContent(containerOfRecipes);
-    const url = `https://api.spoonacular.com/recipes/complexSearch?query=${searchString}&number=100&apiKey=${APIKey}`;
+    const url = `https://api.spoonacular.com/recipes/complexSearch?query=${searchString}&number=10&apiKey=${APIKey}`;
     fetch(url, {
         method: "GET",
         withCredentials: true,
@@ -57,13 +57,78 @@ function showSearchResult() {
     })
     .then(resp => resp.json())
     .then(function(data) {
+        if (searchString==='') {throw new SyntaxError("No recipe was found");}  //не получается пока повесить ошибку на результат, когда ничего не выпадает - пустой экран
+        console.log(data);
         data.results.map(el => {
             let foodCard=new RecipeCard(el.id, el.image, el.title);
             foodCard.displayRecipeCard(foodCard.id, foodCard.image, foodCard.title);
         });
+
     })
     .catch(function(error) {
-        console.log(error); // написать код, чтобы выводилось сообщение "Такой рецепт не найден"
+        let errorResult='';
+        errorResult=`
+<div class="container__result-error">
+        <div class="error-message">${error.message}</div>
+    </div>
+`;
+containerOfRecipes.innerHTML=errorResult;
     });
 }
 
+
+
+
+
+
+// Второй варинант поиска, еще не опробовала, так как превысила квоту по запросам :)
+
+
+// const recipes=[];
+// function showSearchResult() {
+//     const searchString=globalSearchInput.value.trim().replace(/[ ,]+/g, ',');
+//     const url = `https://api.spoonacular.com/recipes/complexSearch?query=${searchString}&number=10&apiKey=${APIKey}`;
+//     fetch(url, {
+//         method: "GET",
+//         withCredentials: true,
+//         headers: {
+//             "Content-Type": "application/json"
+//             }
+//     })
+//     .then(resp => resp.json())
+//     .then(function(data) {
+//         if (searchString==='') {throw new SyntaxError("No recipe was found");}  //не получается пока повесить ошибку на результат, когда ничего не выпадает - пустой экран
+//     data.results.forEach(item => {
+//         recipes.push(item);
+// });
+// })
+
+//     .catch(function(error) {
+//     let errorResult='';
+//     errorResult=`
+//     <div class="container__result-error">
+//     <div class="error-message">${error.message}</div>
+//     </div>
+//     `;  
+//     containerOfRecipes.innerHTML=errorResult;
+//     })
+// }
+
+// function getOptions(word, recipes) {
+//     return recipes.filter(r => {
+//         const regex= new RegExp(word, 'gi');
+//         return r.title.match(regex);
+//     })
+//     }
+
+// function displayRecipesOptions() {
+//     containerOfRecipes.innerHTML='';
+//     const options = getOptions(this.value, recipes);
+//     options.map(el => {
+//     let foodCard=new RecipeCard(el.id, el.image, el.title);
+//     return foodCard.displayRecipeCard(foodCard.id, foodCard.image, foodCard.title);
+//     });
+// }
+
+// globalSearchInput.addEventListener('change', displayRecipesOptions);
+// globalSearchInput.addEventListener('keyup', displayRecipesOptions);
