@@ -30,16 +30,6 @@ class RecipeCard {
     }
 }
 
-function receiveInputValue(){
-    globalSearchForm.addEventListener('submit', (evt) => {
-        evt.preventDefault();
-        showSearchResult();
-    } );
-};
-
-globalSearchInput.onchange=receiveInputValue();
-
-
 function clearContent(elementToClear) {
     elementToClear.innerHTML='';
 }
@@ -57,36 +47,57 @@ function showSearchResult() {
     })
     .then(resp => resp.json())
     .then(function(data) {
-        if (searchString==='') {throw new SyntaxError("No recipe was found");}  //не получается пока повесить ошибку на результат, когда ничего не выпадает - пустой экран
-        console.log(data);
-        data.results.map(el => {
-            let foodCard=new RecipeCard(el.id, el.image, el.title);
-            foodCard.displayRecipeCard(foodCard.id, foodCard.image, foodCard.title);
-        });
-
-    })
+        if (searchString==='') {throw new SyntaxError("No recipe was found");}  //не получается пока повесить ошибку на результат, когда ничего не выпадает и у нас пустой экран
+const recipeOptions = getOptions(this.value, data.results);
+recipeOptions.map(el => {
+let foodCard=new RecipeCard(el.id, el.image, el.title);
+return foodCard.displayRecipeCard(foodCard.id, foodCard.image, foodCard.title);
+});
+})
     .catch(function(error) {
-        let errorResult='';
-        errorResult=`
-<div class="container__result-error">
-        <div class="error-message">${error.message}</div>
+    let errorResult='';
+    errorResult=`
+    <div class="container__result-error">
+    <div class="error-message">${error.message}</div>
     </div>
-`;
-containerOfRecipes.innerHTML=errorResult;
-    });
+    `;  
+    containerOfRecipes.innerHTML=errorResult;
+    })
 }
 
+function getOptions(word, recipes) {
+    return recipes.filter(r => {
+        const regex= new RegExp(word, 'gi');
+        return r.title.match(regex);
+    })
+    }
+
+globalSearchInput.addEventListener('change', showSearchResult);
+globalSearchInput.addEventListener('keyup',  showSearchResult);
 
 
 
 
 
-// Второй варинант поиска, еще не опробовала, так как превысила квоту по запросам :)
+// Второй варинант поиска, результаты отображаются после нажатия enter
+
+// function receiveInputValue(){
+//     globalSearchForm.addEventListener('submit', (evt) => {
+//         evt.preventDefault();
+//         showSearchResult();
+//     } );
+// };
+
+// globalSearchInput.onchange=receiveInputValue();
 
 
-// const recipes=[];
+// function clearContent(elementToClear) {
+//     elementToClear.innerHTML='';
+// }
+
 // function showSearchResult() {
 //     const searchString=globalSearchInput.value.trim().replace(/[ ,]+/g, ',');
+//     clearContent(containerOfRecipes);
 //     const url = `https://api.spoonacular.com/recipes/complexSearch?query=${searchString}&number=10&apiKey=${APIKey}`;
 //     fetch(url, {
 //         method: "GET",
@@ -98,37 +109,20 @@ containerOfRecipes.innerHTML=errorResult;
 //     .then(resp => resp.json())
 //     .then(function(data) {
 //         if (searchString==='') {throw new SyntaxError("No recipe was found");}  //не получается пока повесить ошибку на результат, когда ничего не выпадает - пустой экран
-//     data.results.forEach(item => {
-//         recipes.push(item);
-// });
-// })
+//         console.log(data);
+//         data.results.map(el => {
+//             let foodCard=new RecipeCard(el.id, el.image, el.title);
+//             foodCard.displayRecipeCard(foodCard.id, foodCard.image, foodCard.title);
+//         });
 
+//     })
 //     .catch(function(error) {
-//     let errorResult='';
-//     errorResult=`
-//     <div class="container__result-error">
-//     <div class="error-message">${error.message}</div>
+//         let errorResult='';
+//         errorResult=`
+// <div class="container__result-error">
+//         <div class="error-message">${error.message}</div>
 //     </div>
-//     `;  
-//     containerOfRecipes.innerHTML=errorResult;
-//     })
-// }
-
-// function getOptions(word, recipes) {
-//     return recipes.filter(r => {
-//         const regex= new RegExp(word, 'gi');
-//         return r.title.match(regex);
-//     })
-//     }
-
-// function displayRecipesOptions() {
-//     containerOfRecipes.innerHTML='';
-//     const options = getOptions(this.value, recipes);
-//     options.map(el => {
-//     let foodCard=new RecipeCard(el.id, el.image, el.title);
-//     return foodCard.displayRecipeCard(foodCard.id, foodCard.image, foodCard.title);
+// `;
+// containerOfRecipes.innerHTML=errorResult;
 //     });
 // }
-
-// globalSearchInput.addEventListener('change', displayRecipesOptions);
-// globalSearchInput.addEventListener('keyup', displayRecipesOptions);
