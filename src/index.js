@@ -4,7 +4,9 @@ const containerOfIngredients=document.querySelector('.ingredients-container');
 const containerOfInstructionSteps=document.querySelector('.instructions-container');
 const globalSearchForm=document.querySelector('.search-form');
 const globalSearchInput=document.querySelector('.general-search-input');
-const APIKey='1e861f0ae0c840e69381d66148d8a676';
+const APIKey='271bcfffc9c54ab0ad9b841220a32f0d';
+
+// Создание разметки
 
 function recipeCardLayout(id, image, name) {
 let cardOfRecipe='';
@@ -55,6 +57,7 @@ function RecipeInstructionsStepsLayout(instructionStepsNumber, instructionStepsT
     containerOfInstructionSteps.innerHTML+=listOfInstructionSteps;
     }
 
+// Классы для карточек с рецептами и их инструкций с описанием и ингридиентами
 class RecipeCard {
     id;
     image;
@@ -69,34 +72,49 @@ class RecipeCard {
         return recipeCardLayout(this.id, this.image, this.name);
     }
 }
-
-class RecipeInstructionsCard extends RecipeCard{
+class RecipeDescriptionCard extends RecipeCard{
     readyTime;
-    ingredientName;
-    ingredientQuantity;
-    quantityMeasure;
-    instructionStepsNumber;
-    instructionStepsText;
 
-    constructor(id, image, name, readyTime, ingredientName, ingredientQuantity, quantityMeasure, instructionStepsNumber, instructionStepsText){
+    constructor(id, image, name, readyTime){
         super(id, image, name);
         this.readyTime=readyTime;
-        this.ingredientName=ingredientName;
-        this.ingredientQuantity=ingredientQuantity;
-        this.quantityMeasure=quantityMeasure;
-        this.instructionStepsNumber=instructionStepsNumber;
-        this.instructionStepsText=instructionStepsText;
     }
     displayRecipeDescription(){
         return RecipeDescriptionCardLayout(super.id, this.image, this.name, this.readyTime);
     }
+    
+}
+class RecipeIngredientsCard extends RecipeCard{
+    ingredientName;
+    ingredientQuantity;
+    quantityMeasure;
+
+    constructor(id, image, name, ingredientName, ingredientQuantity, quantityMeasure){
+        super(id, image, name);
+        this.ingredientName=ingredientName;
+        this.ingredientQuantity=ingredientQuantity;
+        this.quantityMeasure=quantityMeasure;
+    }
     displayRecipeIngredients(){
         return RecipeIngredientsCardLayout(this.ingredientName, this.ingredientQuantity, this.quantityMeasure);
+    }
+}
+class RecipeInstructionsCard extends RecipeCard{
+    instructionStepsNumber;
+    instructionStepsText;
+
+    constructor(id, image, name, instructionStepsNumber, instructionStepsText){
+        super(id, image, name);
+        this.instructionStepsNumber=instructionStepsNumber;
+        this.instructionStepsText=instructionStepsText;
     }
     displayRecipeInstructionsStepList(){
         return RecipeInstructionsStepsLayout(this.instructionStepsNumber, this.instructionStepsText);
         }
+    
 }
+
+// Функции и запросы: поиск и отображение информации с названием, ингридиентами и пошаговой инструкцией при клике на кнопку View Recipe
 
 function clearContent(elementToClear) {
     elementToClear.innerHTML='';
@@ -133,10 +151,21 @@ function showSearchResult() {
                         }
                 })
                 .then(response => response.json())
-                .then(function(el) {
-                    let recipeDescription=new RecipeInstructionsCard(el.id, el.image, el.title, el.readyInMinutes, el.extendedIngredients.originalName, el.extendedIngredients.amount, el.extendedIngredients.unit);
-                    recipeDescription.displayRecipeDescription(recipeDescription.id, recipeDescription.image, recipeDescription.title, recipeDescription.readyInMinutes);
-                    // еще в процессе вывода ингридиентов и пошаговой инструкции
+                .then(function(data) {
+                        let recipeDescription=new RecipeDescriptionCard(data.id, data.image, data.title, data.readyInMinutes);
+                        recipeDescription.displayRecipeDescription(recipeDescription.id, recipeDescription.image, recipeDescription.title, recipeDescription.readyInMinutes);
+                    
+                    data.extendedIngredients.forEach(item => {
+                        let recipeIngredients=new RecipeIngredientsCard(item.id, item.image, item.title, item.originalName, item.amount, item.unit);
+                        recipeIngredients.displayRecipeIngredients(recipeIngredients.originalName, recipeIngredients.amount )
+                    });
+                    data.analyzedInstructions.forEach(item => {
+                        for (let step of item.steps) {
+                            let recipeInstructionSteps=new RecipeInstructionsCard(step.id, step.image, step.title, step.number, step.step);
+                        recipeInstructionSteps.displayRecipeInstructionsStepList(recipeInstructionSteps.number, recipeInstructionSteps.step);
+                        }
+                        
+                    });
                 })
             })
         });
