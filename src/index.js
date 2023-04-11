@@ -71,6 +71,9 @@ class RecipeCard {
     displayRecipeCard() {
         return recipeCardLayout(this.id, this.image, this.name);
     }
+    displayRandomRecipeCard(){
+        return randomRecipeCardLayout(this.id, this.image, this.name)
+    }
 }
 class RecipeDescriptionCard extends RecipeCard{
     readyTime;
@@ -82,7 +85,6 @@ class RecipeDescriptionCard extends RecipeCard{
     displayRecipeDescription(){
         return RecipeDescriptionCardLayout(super.id, this.image, this.name, this.readyTime);
     }
-    
 }
 class RecipeIngredientsCard extends RecipeCard{
     ingredientName;
@@ -164,7 +166,6 @@ function showSearchResult() {
                             let recipeInstructionSteps=new RecipeInstructionsCard(step.id, step.image, step.title, step.number, step.step);
                         recipeInstructionSteps.displayRecipeInstructionsStepList(recipeInstructionSteps.number, recipeInstructionSteps.step);
                         }
-                        
                     });
                 })
             })
@@ -195,6 +196,78 @@ globalSearchInput.addEventListener('change', showSearchResult(e => {
 globalSearchInput.addEventListener('keyup',  showSearchResult);
 
 
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+//Кнопка для отображения рандомного рецепта
+
+const randomRecipeContainer=document.querySelector('.container-random-recipe');
+const randomButton=document.querySelector('.random-recipe-button');
+
+
+function randomRecipeCardLayout(id, image, name) {
+    let cardOfRecipe='';
+    cardOfRecipe=`
+    <div class="container__card recipe-card">
+            <div class="recipe-card__image"><img class="recipe-image" src="${image}" alt="recipeImage"></div>
+            <div class="recipe-card__title">${name}</div>
+            <div class="recipe-card__button"><a href="#"><button id='${id}' class="recipe-display-button" type="button">View recipe</button></a></div>
+        </div>
+    `;
+    randomRecipeContainer.innerHTML+=cardOfRecipe;
+    }
+
+randomButton.addEventListener('click', displayRandomRecipe);
+
+function displayRandomRecipe(){
+    clearContent(randomRecipeContainer);
+    const randomUrl = `https://api.spoonacular.com/recipes/random?number=1&apiKey=${APIKey}`;
+    fetch(randomUrl, {
+        method: "GET",
+        withCredentials: true,
+        headers: {
+            "Content-Type": "application/json"
+            }
+    })
+    .then(resp => resp.json())
+    .then(function(data) {
+        data.recipes.map(item => {
+            let randomRecipeCard=new RecipeCard(item.id, item.image, item.title);
+            return randomRecipeCard.displayRandomRecipeCard(randomRecipeCard.id, randomRecipeCard.image, randomRecipeCard.title);
+        })
+        const showRandomRecipeButton=document.querySelector('.recipe-card__button');
+        // Инструкция и описание пока отображается в том же диве, что и при поиске, так как пока не знаю, в каком контейнере будут описания в итоге
+        showRandomRecipeButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            const randomRecipeId= e.target.id;
+            const randomRecipeIdUrl = `https://api.spoonacular.com/recipes/${randomRecipeId}/information?apiKey=${APIKey}`;
+            fetch(randomRecipeIdUrl, {
+                headers: {
+                    "Content-Type": "application/json"
+                    }
+            })
+            .then(response => response.json())
+                .then(function(data) {
+                        let recipeDescription=new RecipeDescriptionCard(data.id, data.image, data.title, data.readyInMinutes);
+                        recipeDescription.displayRecipeDescription(recipeDescription.id, recipeDescription.image, recipeDescription.title, recipeDescription.readyInMinutes);
+                    
+                    data.extendedIngredients.forEach(item => {
+                        let recipeIngredients=new RecipeIngredientsCard(item.id, item.image, item.title, item.originalName, item.amount, item.unit);
+                        recipeIngredients.displayRecipeIngredients(recipeIngredients.originalName, recipeIngredients.amount )
+                    });
+                    data.analyzedInstructions.forEach(item => {
+                        for (let step of item.steps) {
+                            let recipeInstructionSteps=new RecipeInstructionsCard(step.id, step.image, step.title, step.number, step.step);
+                        recipeInstructionSteps.displayRecipeInstructionsStepList(recipeInstructionSteps.number, recipeInstructionSteps.step);
+                        }
+                    });
+                })
+        })    
+    })
+    .catch(function(error) {
+        randomRecipeContainer.textContent=error.message;
+    })
+
+}
 
 
 
