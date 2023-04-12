@@ -1,0 +1,13 @@
+.rating {
+    font-size: 30px;
+  }
+  .star {
+    display: inline-block;
+    color: gray;
+    cursor: pointer;
+  }
+  .star:hover,
+  .star:focus,
+  .star.active {
+    color: gold;
+  }
