@@ -118,6 +118,7 @@ class RecipeInstructionsCard extends RecipeCard{
 
 // Функции и запросы: поиск и отображение информации с названием, ингридиентами и пошаговой инструкцией при клике на кнопку View Recipe
 
+// Функция для отображения карточек с рецептами по результатам поиска
 function clearContent(elementToClear) {
     elementToClear.innerHTML='';
 }
@@ -141,7 +142,23 @@ function showSearchResult() {
             let foodCard=new RecipeCard(el.id, el.image, el.title);
             return foodCard.displayRecipeCard(foodCard.id, foodCard.image, foodCard.title);
         });
-        const recipeButtons = document.querySelectorAll('.recipe-display-button');
+        
+        showAllInformationOfRecipe();
+    })
+    .catch(function(error) {
+        let errorResult='';
+        errorResult=`
+        <div class="container__result-error">
+        <div class="error-message">${error.message}</div>
+        </div>
+        `;  
+        containerOfRecipes.innerHTML=errorResult;
+    })
+}
+
+// Функция для отображение информации с названием, ингридиентами и пошаговой инструкцией при клике на кнопку View Recipe
+function showAllInformationOfRecipe(){
+const recipeButtons = document.querySelectorAll('.recipe-display-button');
         recipeButtons.forEach((button) => {
             button.addEventListener('click', function(e) {
                 e.preventDefault();
@@ -170,17 +187,7 @@ function showSearchResult() {
                 })
             })
         });
-        
-    })
-    .catch(function(error) {
-        let errorResult='';
-        errorResult=`
-        <div class="container__result-error">
-        <div class="error-message">${error.message}</div>
-        </div>
-        `;  
-        containerOfRecipes.innerHTML=errorResult;
-    })
+
 }
 
 function getOptions(word, recipes) {
@@ -246,31 +253,31 @@ function displayRandomRecipe(){
                     }
             })
             .then(response => response.json())
-                .then(function(data) {
-                        let recipeDescription=new RecipeDescriptionCard(data.id, data.image, data.title, data.readyInMinutes);
-                        recipeDescription.displayRecipeDescription(recipeDescription.id, recipeDescription.image, recipeDescription.title, recipeDescription.readyInMinutes);
-                    
-                    data.extendedIngredients.forEach(item => {
-                        let recipeIngredients=new RecipeIngredientsCard(item.id, item.image, item.title, item.originalName, item.amount, item.unit);
-                        recipeIngredients.displayRecipeIngredients(recipeIngredients.originalName, recipeIngredients.amount )
-                    });
-                    data.analyzedInstructions.forEach(item => {
-                        for (let step of item.steps) {
-                            let recipeInstructionSteps=new RecipeInstructionsCard(step.id, step.image, step.title, step.number, step.step);
-                        recipeInstructionSteps.displayRecipeInstructionsStepList(recipeInstructionSteps.number, recipeInstructionSteps.step);
-                        }
-                    });
-                })
+            .then(function(data) {
+                showRandomRecipeAllInformation(data);
+            })
         })    
     })
     .catch(function(error) {
         randomRecipeContainer.textContent=error.message;
     })
-
 }
 
+function showRandomRecipeAllInformation(data){
+let recipeDescription=new RecipeDescriptionCard(data.id, data.image, data.title, data.readyInMinutes);
+recipeDescription.displayRecipeDescription(recipeDescription.id, recipeDescription.image, recipeDescription.title, recipeDescription.readyInMinutes);
 
-
+data.extendedIngredients.forEach(item => {
+let recipeIngredients=new RecipeIngredientsCard(item.id, item.image, item.title, item.originalName, item.amount, item.unit);
+recipeIngredients.displayRecipeIngredients(recipeIngredients.originalName, recipeIngredients.amount )
+});
+data.analyzedInstructions.forEach(item => {
+for (let step of item.steps) {
+    let recipeInstructionSteps=new RecipeInstructionsCard(step.id, step.image, step.title, step.number, step.step);
+recipeInstructionSteps.displayRecipeInstructionsStepList(recipeInstructionSteps.number, recipeInstructionSteps.step);
+}
+});
+}
 
 
 // Второй варинант поиска, результаты отображаются после нажатия enter
