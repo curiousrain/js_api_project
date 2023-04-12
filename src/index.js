@@ -4,7 +4,7 @@ const containerOfIngredients=document.querySelector('.ingredients-container');
 const containerOfInstructionSteps=document.querySelector('.instructions-container');
 const globalSearchForm=document.querySelector('.search-form');
 const globalSearchInput=document.querySelector('.general-search-input');
-const APIKey='271bcfffc9c54ab0ad9b841220a32f0d';
+const APIKey='aece9e5aa1324bfcba9e2f87fd6b9178';
 
 // Создание разметки
 
