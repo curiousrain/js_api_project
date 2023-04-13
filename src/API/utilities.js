@@ -23,5 +23,5 @@ const saveFavorite = (obj) => { //ф-ия сохраняет данные в Loc
     window.localStorage.setItem('favorite', JSON.stringify(array))
 }
 
-// saveFavorite(a2)
+
 

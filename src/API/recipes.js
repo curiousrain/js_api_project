@@ -1,7 +1,10 @@
-const apiKey = "6b670efbd0ea4d829a41bdec3f7e5a0a"
+const apiKey = "6b670efbd0ea4d829a41bdec3f7e5a0a";
 
-const btn = document.querySelector('.button_for_search')
-const ul = document.querySelector('.rec')
+const btn = document.querySelector('.button_for_search');
+const ul = document.querySelector('.rec');
+const li = document.querySelector('.recItem');
+const img = document.querySelector('.recImg');
+const h3 = document.querySelector('.recTitle');
 
 
 function searchRecipes(param) { // метод который делает запрос на сервер с параметрами поиска
@@ -25,15 +28,20 @@ btn.addEventListener('click', () => {
 })
 
 function addRecipes(array) {
-    ul.appendChild(li);
+    let ul = document.createElement('ul').appendChild(document.createElement('li'));
+    ul.className = "rec";
+    li.className = "recItem";
+    li = document.appendChild(document.createElement("img"))
+    li = document.appendChild(document.createElement("h3"))
+    
+    img.innerHTML = `<img src=Title:${a1.image} alt="" class="recImg">`
+    h3.innerHTML = `<h3 class="recTitle">Recipes:${a1.title}</h3>`
+    
+
 }
+const div = document.createElement('div');
+    div.className='card';
 
 
-// const input = document.querySelector('.input').value //получаем название кухни из инпута
-// // const ingri = document.querySelector('.ingri').value
-// const cuisine = input ? `&cuisine=${input}`: ''; //если название кухни заполнено, то создаем строку с клечом для поиска и передали то что было в инпуте
-// const i = ingri? `&ingri=${ingri}`: '';
-// const param = cuisine+i //все наши ключи собираем в одну строку
-// const f = `&cuisine="italian"&`
-// searchRecipes(cuisine) //передаем собранные значения как параметры функции
-// searchRecipes("italian")
+
+
