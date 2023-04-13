@@ -4,17 +4,16 @@ const containerOfIngredients=document.querySelector('.ingredients-container');
 const containerOfInstructionSteps=document.querySelector('.instructions-container');
 const globalSearchForm=document.querySelector('.search-form');
 const globalSearchInput=document.querySelector('.general-search-input');
-const APIKey='aece9e5aa1324bfcba9e2f87fd6b9178';
+const APIKey='271bcfffc9c54ab0ad9b841220a32f0d';
 
 // Создание разметки
 
 function recipeCardLayout(id, image, name) {
 let cardOfRecipe='';
 cardOfRecipe=`
-<div class="container__card recipe-card">
+    <div class="container__card recipe-card" id='${id}'>
         <div class="recipe-card__image"><img class="recipe-image" src="${image}" alt="recipeImage"></div>
         <div class="recipe-card__title">${name}</div>
-        <div class="recipe-card__button"><a href="#"><button id='${id}' class="recipe-display-button" type="button">View recipe</button></a></div>
     </div>
 `;
 containerOfRecipes.innerHTML+=cardOfRecipe;
@@ -136,14 +135,20 @@ function showSearchResult() {
     })
     .then(resp => resp.json())
     .then(function(data) {
+        if (searchString==='') {
+            containerOfRecipes.classList.add('container-hidden');
+        }
+        else{
+            containerOfRecipes.classList.remove('container-hidden');
         const recipeOptions = getOptions(this.value, data.results);
-        if (searchString===''|| recipeOptions.length===0) {throw new SyntaxError("No recipe was found");} 
+        if (recipeOptions.length===0) {throw new SyntaxError("No recipe was found");} 
         recipeOptions.map(el => {
             let foodCard=new RecipeCard(el.id, el.image, el.title);
             return foodCard.displayRecipeCard(foodCard.id, foodCard.image, foodCard.title);
         });
         
         showAllInformationOfRecipe();
+        }
     })
     .catch(function(error) {
         let errorResult='';
@@ -158,35 +163,35 @@ function showSearchResult() {
 
 // Функция для отображение информации с названием, ингридиентами и пошаговой инструкцией при клике на кнопку View Recipe
 function showAllInformationOfRecipe(){
-const recipeButtons = document.querySelectorAll('.recipe-display-button');
-        recipeButtons.forEach((button) => {
-            button.addEventListener('click', function(e) {
-                e.preventDefault();
-                const recipeId= e.target.id;
-                const recipeUrl = `https://api.spoonacular.com/recipes/${recipeId}/information?apiKey=${APIKey}`;
-                fetch(recipeUrl, {
-                    headers: {
-                        "Content-Type": "application/json"
-                        }
-                })
-                .then(response => response.json())
-                .then(function(data) {
-                        let recipeDescription=new RecipeDescriptionCard(data.id, data.image, data.title, data.readyInMinutes);
-                        recipeDescription.displayRecipeDescription(recipeDescription.id, recipeDescription.image, recipeDescription.title, recipeDescription.readyInMinutes);
-                    
-                    data.extendedIngredients.forEach(item => {
-                        let recipeIngredients=new RecipeIngredientsCard(item.id, item.image, item.title, item.originalName, item.amount, item.unit);
-                        recipeIngredients.displayRecipeIngredients(recipeIngredients.originalName, recipeIngredients.amount )
-                    });
-                    data.analyzedInstructions.forEach(item => {
-                        for (let step of item.steps) {
-                            let recipeInstructionSteps=new RecipeInstructionsCard(step.id, step.image, step.title, step.number, step.step);
-                        recipeInstructionSteps.displayRecipeInstructionsStepList(recipeInstructionSteps.number, recipeInstructionSteps.step);
-                        }
-                    });
-                })
-            })
-        });
+const recipeLinks = document.querySelectorAll('.recipe-card');
+recipeLinks.forEach((link) => {
+    link.addEventListener('click', function(e) {
+        e.preventDefault();
+        const recipeId= e.currentTarget.id;
+        const recipeUrl = `https://api.spoonacular.com/recipes/${recipeId}/information?apiKey=${APIKey}`;
+        fetch(recipeUrl, {
+            headers: {
+                "Content-Type": "application/json"
+                }
+        })
+        .then(response => response.json())
+        .then(function(data) {
+                let recipeDescription=new RecipeDescriptionCard(data.id, data.image, data.title, data.readyInMinutes);
+                recipeDescription.displayRecipeDescription(recipeDescription.id, recipeDescription.image, recipeDescription.title, recipeDescription.readyInMinutes);
+            
+            data.extendedIngredients.forEach(item => {
+                let recipeIngredients=new RecipeIngredientsCard(item.id, item.image, item.title, item.originalName, item.amount, item.unit);
+                recipeIngredients.displayRecipeIngredients(recipeIngredients.originalName, recipeIngredients.amount )
+            });
+            data.analyzedInstructions.forEach(item => {
+                for (let step of item.steps) {
+                    let recipeInstructionSteps=new RecipeInstructionsCard(step.id, step.image, step.title, step.number, step.step);
+                recipeInstructionSteps.displayRecipeInstructionsStepList(recipeInstructionSteps.number, recipeInstructionSteps.step);
+                }
+            });
+        })
+    })
+});
 
 }
 
@@ -208,17 +213,16 @@ globalSearchInput.addEventListener('keyup',  showSearchResult);
 //Кнопка для отображения рандомного рецепта
 
 const randomRecipeContainer=document.querySelector('.container-random-recipe');
-const randomButton=document.querySelector('.random-recipe-button');
+const randomButton=document.querySelector('.random-recipe__button');
 
 
 function randomRecipeCardLayout(id, image, name) {
     let cardOfRecipe='';
     cardOfRecipe=`
-    <div class="container__card recipe-card">
-            <div class="recipe-card__image"><img class="recipe-image" src="${image}" alt="recipeImage"></div>
-            <div class="recipe-card__title">${name}</div>
-            <div class="recipe-card__button"><a href="#"><button id='${id}' class="recipe-display-button" type="button">View recipe</button></a></div>
-        </div>
+    <div class="container__card recipe-card" id='${id}'>
+        <div class="recipe-card__image"><img class="recipe-image" src="${image}" alt="recipeImage"></div>
+        <div class="recipe-card__title">${name}</div>
+    </div>
     `;
     randomRecipeContainer.innerHTML+=cardOfRecipe;
     }
@@ -241,11 +245,11 @@ function displayRandomRecipe(){
             let randomRecipeCard=new RecipeCard(item.id, item.image, item.title);
             return randomRecipeCard.displayRandomRecipeCard(randomRecipeCard.id, randomRecipeCard.image, randomRecipeCard.title);
         })
-        const showRandomRecipeButton=document.querySelector('.recipe-card__button');
+        const showRandomRecipeLink=document.querySelector('.recipe-card');
         // Инструкция и описание пока отображается в том же диве, что и при поиске, так как пока не знаю, в каком контейнере будут описания в итоге
-        showRandomRecipeButton.addEventListener('click', function(e) {
+        showRandomRecipeLink.addEventListener('click', function(e) {
             e.preventDefault();
-            const randomRecipeId= e.target.id;
+            const randomRecipeId= e.currentTarget.id;
             const randomRecipeIdUrl = `https://api.spoonacular.com/recipes/${randomRecipeId}/information?apiKey=${APIKey}`;
             fetch(randomRecipeIdUrl, {
                 headers: {
@@ -278,52 +282,3 @@ recipeInstructionSteps.displayRecipeInstructionsStepList(recipeInstructionSteps.
 }
 });
 }
-
-
-// Второй варинант поиска, результаты отображаются после нажатия enter
-
-// function receiveInputValue(){
-//     globalSearchForm.addEventListener('submit', (evt) => {
-//         evt.preventDefault();
-//         showSearchResult();
-//     } );
-// };
-
-// globalSearchInput.onchange=receiveInputValue();
-
-
-// function clearContent(elementToClear) {
-//     elementToClear.innerHTML='';
-// }
-
-// function showSearchResult() {
-//     const searchString=globalSearchInput.value.trim().replace(/[ ,]+/g, ',');
-//     clearContent(containerOfRecipes);
-//     const url = `https://api.spoonacular.com/recipes/complexSearch?query=${searchString}&number=10&apiKey=${APIKey}`;
-//     fetch(url, {
-//         method: "GET",
-//         withCredentials: true,
-//         headers: {
-//             "Content-Type": "application/json"
-//             }
-//     })
-//     .then(resp => resp.json())
-//     .then(function(data) {
-//         if (searchString==='') {throw new SyntaxError("No recipe was found");}  //не получается пока повесить ошибку на результат, когда ничего не выпадает - пустой экран
-//         console.log(data);
-//         data.results.map(el => {
-//             let foodCard=new RecipeCard(el.id, el.image, el.title);
-//             foodCard.displayRecipeCard(foodCard.id, foodCard.image, foodCard.title);
-//         });
-
-//     })
-//     .catch(function(error) {
-//         let errorResult='';
-//         errorResult=`
-// <div class="container__result-error">
-//         <div class="error-message">${error.message}</div>
-//     </div>
-// `;
-// containerOfRecipes.innerHTML=errorResult;
-//     });
-// }
