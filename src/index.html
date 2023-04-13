@@ -10,7 +10,30 @@
 </head>
 
 <body>
-    <h1>Hello World!</h1>
+    <header class="header">
+        <div class="search-form">
+            <button class="general-search-icon" type="text"><img class="search-icon-image"
+                    src="./assets/images/lens.svg" alt="lens"></button>
+            <input class="general-search-input" type="text" placeholder="Search">
+        </div>
+    </header>
+    <section class="recipes-container container">
+    </section>
+    <div class="recipe-description-container"></div>
+    <div class="ingredients-container"></div>
+    <div class="instructions-container"></div>
+
+
+    <section class="randon-recipe-section">
+        <div class="randon-recipe-section__text">Use our random recipe search service if you don't know what you want to
+            make</div>
+        <div class="randon-recipe-section__button">
+            <button class="random-recipe__button" type="button">Random Recipe</button>
+        </div>
+    </section>
+
+    <div class="container-random-recipe"></div>
+
     <script src="./index.js"></script>
 </body>
 
