@@ -17,17 +17,23 @@ async function getRecipeById() {
 getRecipeById()
     .then((response) => {
         document.title = response.title;
+        CurrentRecipe(response);
     })
     .catch(e => console.log(e));
 
 
-function CurrentRecipe(recipeId) {
-    recipeContainer.innerHTML = recipeId.map((response) =>
-        `<div class ="recipe-form">
-        <h1 class = "recipe-title">${response.title}</h1>
-        <div class = "recipe-indredients">
-        
-        </div>
+function CurrentRecipe(recipe) {
+    const recipeIngredients = recipe.extendedIngredients.map((ingredients) =>
+        `<div class = "recipe-ingredients-container">
+        <ul class = "ingredients-list">
+        <li>${ingredients.originalName} - ${ingredients.measures.metric.amount} ${ingredients.measures.metric.unitShort}</li>
+        </ul>
         </div>`
+    ).join('');
+    recipeContainer.innerHTML = recipeIngredients;
+    const recipeInstructions = recipe.analyzedInstructions.map((steps) =>
+        `<div class = recipe-intsctuctions-container>
+        
+    </div>`
     )
 }

@@ -22,7 +22,7 @@ function displaySearchQuery(recipeResult) {
         <img src ="${element.image}">
         </div >`
     ).join("")
-    recipePage.render();
+    recipePage.render;
 }
 
 //сделать для ошибки
