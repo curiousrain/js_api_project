@@ -1,10 +1,12 @@
+import recipeInfo from './recipe-info.html';
+
 const containerOfRecipes=document.querySelector('.recipes-container');
 const containerOfRecipeDescription=document.querySelector('.recipe-description-container');
 const containerOfIngredients=document.querySelector('.ingredients-container');
 const containerOfInstructionSteps=document.querySelector('.instructions-container');
 const globalSearchForm=document.querySelector('.search-form');
 const globalSearchInput=document.querySelector('.general-search-input');
-const APIKey='8a0c428178c34d12977b0fba4a1b612e';
+const APIKey='aece9e5aa1324bfcba9e2f87fd6b9178';
 
 // Создание разметки
 
@@ -13,7 +15,7 @@ let cardOfRecipe='';
 cardOfRecipe=`
     <div class="container__card recipe-card" id='${id}'>
         <div class="recipe-card__image"><img class="recipe-image" src="${image}" alt="recipeImage"></div>
-        <div class="recipe-card__title">${name}</div>
+        <div class="recipe-card__title"><a href="${recipeInfo}"></a>${name}</div>
     </div>
 `;
 containerOfRecipes.innerHTML+=cardOfRecipe;
