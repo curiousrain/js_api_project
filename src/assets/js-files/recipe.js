@@ -24,16 +24,18 @@ getRecipeById()
 
 function CurrentRecipe(recipe) {
     const recipeIngredients = recipe.extendedIngredients.map((ingredients) =>
-        `<div class = "recipe-ingredients-container">
-        <ul class = "ingredients-list">
-        <li>${ingredients.originalName} - ${ingredients.measures.metric.amount} ${ingredients.measures.metric.unitShort}</li>
-        </ul>
-        </div>`
+        `<li>${ingredients.originalName} - ${ingredients.measures.metric.amount} ${ingredients.measures.metric.unitShort}</li>`
     ).join('');
-    recipeContainer.innerHTML = recipeIngredients;
-    const recipeInstructions = recipe.analyzedInstructions.map((steps) =>
-        `<div class = recipe-intsctuctions-container>
-        
-    </div>`
-    )
+
+    let HTML = `<h1>${recipe.title}</h1> <img src ="${recipe.image}"><div class = "recipe-ingredients-container"><ul class = "ingredients-list"> ${recipeIngredients}</ul></div> <div class = "recipe-summary">${recipe.summary}</div>`;
+    if (recipe.analyzedInstructions.length > 0) {
+        const recipeInstructions = recipe.analyzedInstructions[0].steps.map((step) =>
+            ` <li>${step.step}</li>`
+        ).join('');
+        HTML += `<div class = "recipe-instructions-container"><ol class = "instructions-list">${recipeInstructions}</ol></div>`;
+    }
+    else {
+        HTML += `<p class = "recipe-source">Sorry, we can't provide you with instructions. For more information visit <a href = "${recipe.sourceUrl}"> recipe source</a></p>`
+    }
+    recipeContainer.innerHTML = HTML;
 }
