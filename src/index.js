@@ -1,21 +1,19 @@
-import recipeInfo from './recipe-info.html';
-
 const containerOfRecipes=document.querySelector('.recipes-container');
 const containerOfRecipeDescription=document.querySelector('.recipe-description-container');
 const containerOfIngredients=document.querySelector('.ingredients-container');
 const containerOfInstructionSteps=document.querySelector('.instructions-container');
 const globalSearchForm=document.querySelector('.search-form');
 const globalSearchInput=document.querySelector('.general-search-input');
-const APIKey='aece9e5aa1324bfcba9e2f87fd6b9178';
+const APIKey='271bcfffc9c54ab0ad9b841220a32f0d';
 
 // Создание разметки
-
+const onClick=()=>window.document.location='recipe-info.html';
 function recipeCardLayout(id, image, name) {
 let cardOfRecipe='';
 cardOfRecipe=`
     <div class="container__card recipe-card" id='${id}'>
         <div class="recipe-card__image"><img class="recipe-image" src="${image}" alt="recipeImage"></div>
-        <div class="recipe-card__title"><a href="${recipeInfo}"></a>${name}</div>
+        <div class="recipe-card__title" onclick="onClick()">${name}</div>
     </div>
 `;
 containerOfRecipes.innerHTML+=cardOfRecipe;

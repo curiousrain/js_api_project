@@ -1,5 +1,8 @@
 {
-  "source": "src/index.html",
+  "source": [
+    "src/index.html",
+    "src/recipe-info.html"
+  ],
   "scripts": {
     "start": "parcel",
     "build": "parcel build"
