@@ -19,7 +19,7 @@ function displaySearchQuery(recipeResult) {
     recipeContainer.innerHTML = recipeResult.map((element) =>
         `<div class = "result-post">
         <p class = "result-tittle"><a href = "${recipePage}#${element.id}">${element.title}</a></p>
-        <img src ="${element.image}">
+        <img class = "recipe-search-image" src ="${element.image}">
         </div >`
     ).join("")
     recipePage.render;
