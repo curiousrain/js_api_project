@@ -3,6 +3,8 @@ $bright-orange:#FF6734;
 $dark-orange: #D35727;
 $martel-font: 'Martel Sans', sans-serif;
 
+@import url('https://fonts.googleapis.com/css2?family=Alegreya+Sans:wght@700&display=swap');
+
 // для инпута поиска
 
 body {
@@ -116,4 +118,15 @@ text-align: center;
     line-height: 6.7vw;
     padding: 12vw 12% 0 12%;
     overflow-wrap: break-word;
+}
+
+// раздел selections
+
+.selections__header {
+    font-family: 'Alegreya Sans', sans-serif;
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 38px;
+    letter-spacing: 0em;
+    text-align: center;
 }
