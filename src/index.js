@@ -4,6 +4,9 @@ const globalSearchInput = document.querySelector('.general-search-input');
 const containerOfRecipeDescription = document.querySelector('.recipe-description-container');
 const containerOfIngredients = document.querySelector('.ingredients-container');
 const containerOfInstructionSteps = document.querySelector('.instructions-container');
+const plateUrl="./assets/images/plate.svg";
+const minusUrl="./assets/images/minus.svg";
+const plusUrl="./assets/images/plus.svg";
 const APIKey = '365fbaeb365a41458545aa7ebd740c00';
 // Классы для карточек с рецептами и их инструкций с описанием и ингридиентами
 class RecipeCard {
@@ -19,8 +22,8 @@ class RecipeCard {
     displayRecipeCard() {
         let cardOfRecipe = '';
         cardOfRecipe = `
-        <div class="container__card recipe-card" id='${this.id}'>
-            <div class="recipe-card__image"><img class="recipe-image" src="${this.image}" alt="recipeImage"></div>
+        <div class="container__card recipe-card" >
+            <div class="recipe-card__image" id='${this.id}'><img class="recipe-image" src="${this.image}" alt="recipeImage"></div>
             <div class="recipe-card__title">${this.name}</div>
         </div>`;
         return cardOfRecipe;
@@ -28,28 +31,51 @@ class RecipeCard {
     displayRandomRecipeCard() {
         let cardOfRecipe = '';
         cardOfRecipe = `
-            <div class="container__card recipe-card" id='${this.id}'>
-                <div class="recipe-card__image"><img class="recipe-image" src="${this.image}" alt="recipeImage"></div>
+            <div class="container__card recipe-card">
+                <div class="recipe-card__image" id='${this.id}'><img class="recipe-image" src="${this.image}" alt="recipeImage"></div>
                 <div class="recipe-card__title">${this.name}</div>
             </div>`;
         return cardOfRecipe;
     }
 }
+
 class RecipeDescriptionCard extends RecipeCard {
     readyTime;
+    servings;
 
-    constructor(id, image, name, readyTime) {
+
+    constructor(id, image, name, readyTime, servings) {
         super(id, image, name);
         this.readyTime = readyTime;
+        this.servings = servings;
+
     }
+
     displayRecipeDescription() {
         let RecipeDescriptionCard = '';
         RecipeDescriptionCard = `
     <div id=${this.id} class="recipe-description-container__description recipe-description-card">
             <div class="recipe-description-card__image"><img class="ingredients-recipe-image" src="${this.image}" alt="recipeImage"></div>
-            <div class="recipe-description-card__title">${this.name}</div>
-            <div class="recipe-description-card__time">${this.readyTime} min</div>
-        </div>
+            <div class="recipe-description-card__content description-content-container">
+                    <div class="description-content-container__title">${this.name}</div>
+                    <div class="description-content-container__general-info">
+                        <div class="recipe-description-card__time">${this.readyTime} min</div>
+                        <div class="recipe-description-card__rating">для звездочек</div>
+                    </div>
+                    <div class="description-content-container__servings servings-info-container">
+                        <div class="servings-info-container__potrions-number servings-content">
+                            <div class="servings-content__portions">Portion(${this.servings})</div>
+                            <div class="servings-content__quantity">
+                                <div class="servings-content__minus"><img class="servings-content__minus-img" src="https://img.icons8.com/material-sharp/24/null/minus.png" alt="minus"></div>
+                                <div class="servings-content__icon"><img class="servings-content__minus-img" src="https://cdn-icons-png.flaticon.com/512/1232/1232728.png" alt="plate"></div>
+                                <div class="servings-content__plus"><img class="servings-content__minus-img" src="https://img.icons8.com/android/24/null/plus.png" alt="plus"></div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+            <div class="recipe-description-card__recipeText">Recipe</div>
+            <div class="recipe-description-card__ingredientsText">Ingredients</div>
+    </div>
     `;
         return RecipeDescriptionCard;
     }
@@ -69,9 +95,13 @@ class RecipeIngredientsCard extends RecipeCard {
         let RecipeIngredientsCard = '';
         RecipeIngredientsCard = `
         <div class="ingredients-container__ingredients ingredients-card">
-                <div class="ingredients-card__name">${this.ingredientName}</div>
-                <div class="ingredients-card__count">${this.ingredientQuantity}</div>
-                <div class="ingredients-card__measure">${this.quantityMeasure}</div>
+            <div class="ingredients-card__content">
+                <div class="ingredients-card__content__name">${this.ingredientName}</div>
+                <div class="ingredients-card__content__quantity ingredient-quantity-container">
+                    <div class="ingredient-quantity-container__count">${this.ingredientQuantity}</div>
+                    <div class="ingredient-quantity-container__measure">${this.quantityMeasure}</div>
+                </div>
+            </div>
         </div>
         `;
         return RecipeIngredientsCard;
@@ -91,7 +121,7 @@ class RecipeInstructionsCard extends RecipeCard {
         listOfInstructionSteps = `
         <div class="instructions-container__steps steps">
             <ul class="steps__list">
-                <li class="steps__list__step-number">${this.instructionStepsNumber}</li>
+                <li class="steps__list__step-number">Step ${this.instructionStepsNumber}</li>
                 <li class="steps__list__step-content">${this.instructionStepsText}</li>
             </ul>
         </div>
@@ -146,7 +176,7 @@ function showSearchResult() {
 
 // Функция для отображение информации с названием, ингридиентами и пошаговой инструкцией при клике на кнопку View Recipe
 function showAllInformationOfRecipe() {
-    const recipeLinks = document.querySelectorAll('.recipe-card');
+    const recipeLinks = document.querySelectorAll('.recipe-card__image');
     recipeLinks.forEach((link) => {
         link.addEventListener('click', function (e) {
             e.preventDefault();
@@ -209,7 +239,7 @@ function displayRandomRecipe() {
                 let randomRecipeCard = new RecipeCard(item.id, item.image, item.title);
                 return randomRecipeContainer.innerHTML += randomRecipeCard.displayRandomRecipeCard(randomRecipeCard.id, randomRecipeCard.image, randomRecipeCard.title);
             })
-            const showRandomRecipeLink = document.querySelector('.recipe-card');
+            const showRandomRecipeLink = document.querySelector('.recipe-card__image');
             showRandomRecipeLink.addEventListener('click', function (e) {
                 e.preventDefault();
                 const randomRecipeId = e.currentTarget.id;
@@ -240,8 +270,8 @@ function displayRandomRecipe() {
 // Отображение рецепта на другой странице
 function recipeInit() {
     const data = JSON.parse(localStorage.getItem('RecipeData')) //Z - используем JSON.parse, чтобы вытащить объект из стрингового значения
-    let recipeDescription = new RecipeDescriptionCard(data.id, data.image, data.title, data.readyInMinutes);
-    containerOfRecipeDescription.innerHTML = recipeDescription.displayRecipeDescription(recipeDescription.id, recipeDescription.image, recipeDescription.title, recipeDescription.readyInMinutes);
+    let recipeDescription = new RecipeDescriptionCard(data.id, data.image, data.title, data.readyInMinutes, data.servings);
+    containerOfRecipeDescription.innerHTML = recipeDescription.displayRecipeDescription(recipeDescription.id, recipeDescription.image, recipeDescription.title, recipeDescription.readyInMinutes, recipeDescription.servings);
 
     data.extendedIngredients.forEach(item => {
         let recipeIngredients = new RecipeIngredientsCard(item.id, item.image, item.title, item.originalName, item.amount, item.unit);
