@@ -19,8 +19,8 @@ class RecipeCard {
     displayRecipeCard() {
         let cardOfRecipe = '';
         cardOfRecipe = `
-        <div class="container__card recipe-card" id='${this.id}'>
-            <div class="recipe-card__image"><img class="recipe-image" src="${this.image}" alt="recipeImage"></div>
+        <div class="container__card recipe-card">
+            <div class="recipe-card__image" id='${this.id}'><img class="recipe-image" src="${this.image}" alt="recipeImage"></div>
             <div class="recipe-card__title">${this.name}</div>
         </div>`;
         return cardOfRecipe;
@@ -28,8 +28,8 @@ class RecipeCard {
     displayRandomRecipeCard() {
         let cardOfRecipe = '';
         cardOfRecipe = `
-            <div class="container__card recipe-card" id='${this.id}'>
-                <div class="recipe-card__image"><img class="recipe-image" src="${this.image}" alt="recipeImage"></div>
+            <div class="container__card recipe-card">
+                <div class="recipe-card__image" id='${this.id}'><img class="recipe-image" src="${this.image}" alt="recipeImage"></div>
                 <div class="recipe-card__title">${this.name}</div>
             </div>`;
         return cardOfRecipe;
@@ -146,7 +146,7 @@ function showSearchResult() {
 
 // Функция для отображение информации с названием, ингридиентами и пошаговой инструкцией при клике на кнопку View Recipe
 function showAllInformationOfRecipe() {
-    const recipeLinks = document.querySelectorAll('.recipe-card');
+    const recipeLinks = document.querySelectorAll('.recipe-card__image');
     recipeLinks.forEach((link) => {
         link.addEventListener('click', function (e) {
             e.preventDefault();
@@ -209,7 +209,7 @@ function displayRandomRecipe() {
                 let randomRecipeCard = new RecipeCard(item.id, item.image, item.title);
                 return randomRecipeContainer.innerHTML += randomRecipeCard.displayRandomRecipeCard(randomRecipeCard.id, randomRecipeCard.image, randomRecipeCard.title);
             })
-            const showRandomRecipeLink = document.querySelector('.recipe-card');
+            const showRandomRecipeLink = document.querySelector('.recipe-card__image');
             showRandomRecipeLink.addEventListener('click', function (e) {
                 e.preventDefault();
                 const randomRecipeId = e.currentTarget.id;
