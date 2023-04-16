@@ -24,5 +24,3 @@ function displaySearchQuery(recipeResult) {
     ).join("")
     recipePage.render;
 }
-
-//сделать для ошибки
