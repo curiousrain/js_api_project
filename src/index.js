@@ -4,7 +4,8 @@ const globalSearchInput = document.querySelector('.general-search-input');
 const containerOfRecipeDescription = document.querySelector('.recipe-description-container');
 const containerOfIngredients = document.querySelector('.ingredients-container');
 const containerOfInstructionSteps = document.querySelector('.instructions-container');
-const APIKey = '365fbaeb365a41458545aa7ebd740c00';
+const APIKey = '30099d303fac4ab0a08b3225e10e9123';
+
 // Классы для карточек с рецептами и их инструкций с описанием и ингридиентами
 class RecipeCard {
     id;
@@ -57,7 +58,13 @@ class RecipeDescriptionCard extends RecipeCard {
                     <div class="description-content-container__title">${this.name}</div>
                     <div class="description-content-container__general-info">
                         <div class="recipe-description-card__time">${this.readyTime} min</div>
-                        <div class="recipe-description-card__rating">для звездочек</div>
+                        <div class="recipe-description-card__rating" data-recipe-id="recipe-1">
+                            <span class="recipe-description-card__rating__star" data-value="1">${this.rating >= 1 ? '★' : '☆'}</span>
+                            <span class="recipe-description-card__rating__star" data-value="2">${this.rating >= 2 ? '★' : '☆'}</span>
+                            <span class="recipe-description-card__rating__star" data-value="3">${this.rating >= 3 ? '★' : '☆'}</span>
+                            <span class="recipe-description-card__rating__star" data-value="4">${this.rating >= 4 ? '★' : '☆'}</span>
+                            <span class="recipe-description-card__rating__star" data-value="5">${this.rating >= 5 ? '★' : '☆'}</span>
+                        </div>
                     </div>
                     <div class="description-content-container__servings servings-info-container">
                         <div class="servings-info-container__potrions-number servings-content">
@@ -77,6 +84,7 @@ class RecipeDescriptionCard extends RecipeCard {
         return RecipeDescriptionCard;
     }
 }
+
 class RecipeIngredientsCard extends RecipeCard {
     ingredientName;
     ingredientQuantity;
@@ -284,3 +292,48 @@ function recipeInit() {
 
 recipeInit();
 
+const stars = document.querySelectorAll('.recipe-description-card__rating__star');
+
+function setRating(rating) {
+  localStorage.setItem('recipeRating', rating);
+}
+
+let savedRating = localStorage.getItem(`recipeRating`);
+
+if (savedRating) {
+  const rating = parseInt(savedRating);
+  stars.forEach((star, index) => {
+    if (index < rating) {
+      star.classList.add('active');
+    } else {
+      star.classList.remove('active');
+    }
+  });
+}
+
+function setRating(rating) {
+  localStorage.setItem(`recipeRating`, rating);
+  savedRating = rating;
+}
+
+const saved_Rating = localStorage.getItem(`recipeRating`);
+if (savedRating) {
+  stars.forEach(star => star.removeEventListener('click', handleStarClick));
+}
+
+function handleStarClick(event) {
+  const clickedStar = event.currentTarget;
+  const rating = Array.from(stars).indexOf(clickedStar) + 1;
+  setRating(rating);
+  stars.forEach((star, index) => {
+    if (index < rating) {
+      star.classList.add('active');
+    } else {
+      star.classList.remove('active');
+    }
+  });
+}
+
+if (!savedRating) {
+  stars.forEach(star => star.addEventListener('click', handleStarClick));
+}

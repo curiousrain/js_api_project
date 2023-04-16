@@ -153,6 +153,21 @@ text-align: center;
     font-size: 7.73vw;
 }
 
+.recipe-description-card__rating {
+    font-size: 30px;
+  }
+  .recipe-description-card__rating__star {
+    display: inline-block;
+    color: #000000;
+    cursor: pointer;
+  }
+
+  .recipe-description-card__rating__star:hover,
+  .recipe-description-card__rating__star:focus,
+  .recipe-description-card__rating__star.active {
+    color: #D35727;
+  }
+
 .recipe-description-card__image{
     z-index: 0;
 }
