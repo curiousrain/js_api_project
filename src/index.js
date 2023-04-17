@@ -4,7 +4,7 @@ const globalSearchInput = document.querySelector('.general-search-input');
 const containerOfRecipeDescription = document.querySelector('.recipe-description-container');
 const containerOfIngredients = document.querySelector('.ingredients-container');
 const containerOfInstructionSteps = document.querySelector('.instructions-container');
-const APIKey = '30099d303fac4ab0a08b3225e10e9123';
+const APIKey = '3115385a8fd74cccafff83f66b0ff84e';
 
 // Классы для карточек с рецептами и их инструкций с описанием и ингридиентами
 class RecipeCard {
@@ -20,16 +20,17 @@ class RecipeCard {
     displayRecipeCard() {
         let cardOfRecipe = '';
         cardOfRecipe = `
-        <div class="container__card recipe-card" >
+        <div class="container__card recipe-card 22" >
             <div class="recipe-card__image" id='${this.id}'><img class="recipe-image" src="${this.image}" alt="recipeImage"></div>
             <div class="recipe-card__title">${this.name}</div>
+            
         </div>`;
         return cardOfRecipe;
     }
     displayRandomRecipeCard() {
         let cardOfRecipe = '';
         cardOfRecipe = `
-            <div class="container__card recipe-card">
+            <div class="container__card recipe-card 11">
                 <div class="recipe-card__image" id='${this.id}'><img class="recipe-image" src="${this.image}" alt="recipeImage"></div>
                 <div class="recipe-card__title">${this.name}</div>
             </div>`;
