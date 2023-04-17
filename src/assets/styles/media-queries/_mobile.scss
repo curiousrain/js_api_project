@@ -1,0 +1,274 @@
+@import url('https://fonts.googleapis.com/css2?family=Martel+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Alegreya+Sans:wght@500&display=swap');
+$bright-orange:#FF6734;
+$dark-orange: #D35727;
+$martel-font: 'Martel Sans', sans-serif;
+$alegreya-font: 'Alegreya Sans', sans-serif;
+
+// для инпута поиска
+
+body {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+}
+
+.general-search-input{
+    width: 30%;
+    border: none;
+    font-family: $martel-font;
+}
+
+.general-search-input::placeholder{
+color: #1E1E1E;
+}
+
+.general-search-input:active, :hover, :focus {
+    outline: 0;
+    outline-offset: 0;
+}
+
+
+.search-form{
+    margin-top: 5%;
+    display: flex;
+    flex-direction: row;
+    width: 50vw;
+    padding: 2%;
+    border: 2px solid $bright-orange;
+    box-shadow: 2px 2px 10px rgba(211, 87, 39, 0.2);
+    border-radius: 30px;
+    font-size: 3.86vw;
+}
+
+.general-search-icon{
+background-color: #FFFFFF;
+border: none;
+text-align: center;
+}
+
+.search-icon-image{
+    width: 5vw;
+}
+
+.container-hidden{
+    display: none;
+}
+
+
+// для вывода общего поиска
+
+.recipes-container{
+    padding-top: 8%;
+}
+
+.recipe-card {
+    margin-top: 5% ;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    border: 1px solid $dark-orange;
+    font-size: 3.86vw;
+    font-family: $martel-font;
+}
+
+.recipe-card__image{
+    height: 100%;
+}
+.recipe-image{
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+
+.recipe-card__title{
+    padding-left: 5%;
+    padding-top: 4%;
+    padding-bottom: 3%;
+}
+
+
+// для кнопки случайного рецепта
+
+.randon-recipe-section{
+    margin-top: 10%;
+    height: max-content;
+    border-top: 2px solid $dark-orange;
+    border-bottom: 2px solid $dark-orange;
+    font-family: $martel-font;
+    font-size: 3.86vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 5vh;
+}
+
+.random-recipe__button{
+    border-radius: 30px;
+    border: none;
+    text-align: center;
+    background-color: $dark-orange;
+    color: #FFFFFF;
+    padding: 6vw 11vw 6vw 11vw;
+    margin-bottom: 9vw;
+}
+
+.randon-recipe-section__text{
+    text-align: center;
+    line-height: 6.7vw;
+    padding: 12vw 12% 0 12%;
+    overflow-wrap: break-word;
+}
+
+// для отображения подробной информации о рецепте
+
+.recipe-description-body{
+    margin-top: -4.5%;
+    padding: 0;
+    width: 100vw;
+}
+
+.recipe-description-card {
+    display: flex;
+    flex-direction: column;
+}
+.description-content-container{
+    display: flex;
+    flex-direction: column;
+    border-radius: 8vw 8vw 0 0;
+    margin-top: -5%;
+    background-color: #FFFFFF;
+    z-index: 1;
+    padding-top: 8%;
+    text-align: center;
+}
+.description-content-container__general-info{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0 6% 5% 6%;
+}
+.recipe-description-card__time{
+    font-family: $alegreya-font;
+    font-size: 7.73vw;
+}
+
+.recipe-description-card__rating {
+    font-size: 30px;
+  }
+  .recipe-description-card__rating__star {
+    display: inline-block;
+    color: #000000;
+    cursor: pointer;
+  }
+
+  .recipe-description-card__rating__star:hover,
+  .recipe-description-card__rating__star:focus,
+  .recipe-description-card__rating__star.active {
+    color: #D35727;
+  }
+
+.recipe-description-card__image{
+    z-index: 0;
+}
+.ingredients-recipe-image{
+    width: 100%;
+}
+.description-content-container__title{
+    font-family: $alegreya-font;
+    font-size: 7.73vw;
+    padding: 0 18% 12% 18%;
+}
+.servings-info-container{
+    display: flex;
+    justify-content: center;
+}
+.servings-content{
+    width: 80%;
+    border-radius: 8.5vw;
+    background-color: rgba(217, 217, 217, 1);
+    padding: 3% 3% 3% 3%;
+}
+.servings-content__quantity{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    height: max-content;
+    column-gap: 10%;
+}
+.servings-content__minus, .servings-content__plus{
+    padding-top: 2%;
+    width: 5vw;    
+}
+
+.servings-content__icon{
+    width: 9vw;
+}
+.servings-content__minus-img, .servings-content__plus-img, .servings-content__minus-img{
+    width: 100%;
+}
+.servings-content__portions{
+    font-size: 4.83vw;
+    font-family: $alegreya-font;
+    padding-bottom: 3%;
+}
+.ingredient-quantity-container{
+    display: flex;
+    flex-direction: row;
+}
+.recipe-description-card__recipeText{
+text-align: center;
+font-size: 5.80vw;
+font-family: $alegreya-font;
+border-bottom: 2px solid $dark-orange;
+margin: 7.5% 40% 6% 40%;
+}
+.recipe-description-card__ingredientsText{
+    text-align: center;
+    font-size: 4.83vw;
+    font-family: $alegreya-font;
+    padding-bottom: 4%;
+}
+.ingredients-card__content{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 3% 8% 3% 8%;
+    margin-left: 5%;
+    margin-right: 5%;
+    border:1px solid rgba(52, 52, 52, 0.5);;
+    font-family: $martel-font;
+    font-size: 3.86vw;
+    }
+
+.ingredients-card__content__name{
+    padding: 0 15% 0 5%;
+}
+.ingredient-quantity-container{
+    padding: 0 5% 0 10%;
+}
+
+.instructions-container__steps{
+    padding: 5% 4% 5% 4%;
+    border-bottom: 1px solid $dark-orange;
+}
+.steps__list__step-number{
+    font-family: $alegreya-font;
+    font-size: 4.83vw;
+    line-height: 5.80vw;
+    padding-bottom: 3%;
+}
+.steps__list__step-content{
+    font-family: $martel-font;
+    font-size: 3.86vw;
+    line-height: 7vw;
+}
+.instructions-container{
+    padding-top: 6%;
+}
+.instructions-container-text{
+    font-family: $alegreya-font;
+    font-size: 5.80vw;
+    text-align: center;
+    padding: 10% 0 10% 0;
+}
