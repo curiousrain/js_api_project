@@ -10,30 +10,25 @@
   </head>
   <body>
     <div class="header-p1">
-      <nav>
-        <div class="navbar">
-          <div class="container nav-container">
-              <input class="checkbox" type="checkbox" name="" id="" />
-              <div class="hamburger-lines">
-                <span class="line line1"></span>
-                <span class="line line2"></span>
-                <span class="line line3"></span>
-              </div>  
-              <ul class="menu-items">
-                <li><a href="#">Recipes</a></li>
-                <li><a href="#">Selection</a></li>
-                <li><a href="#">Advices</a></li>
-                <li><a href="#">Authors</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Search by ingredients</a></li>
-                <li>
-                  <img src="./assets/img/🦆 icon _twitter_.png" alt="twitter">
-                  <img src="./assets/img/🦆 icon _instagram_.png" alt="instagram">
-                </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
+      <div class="hamburger-menu">
+        <input id="menu__toggle" type="checkbox" />
+        <label class="menu__btn" for="menu__toggle">
+          <span></span>
+        </label>
+    
+        <ul class="menu__box">
+          <li><a class="menu__item" href="#">Recipes</a></li>
+          <li><a class="menu__item" href="#">Selection</a></li>
+          <li><a class="menu__item" href="#">Advices</a></li>
+          <li><a class="menu__item" href="#">Authors</a></li>
+          <li><a class="menu__item" href="#">About</a></li>
+          <li><a class="menu__item" href="#">Search by ingredients</a></li>
+          <li>
+            <img src="./assets/img/🦆 icon _twitter_.png" alt="twitter">
+            <img src="./assets/img/🦆 icon _instagram_.png" alt="instagram">
+          </li>
+        </ul>
+      </div>
       <button class="search">
         <img class="icon_search" src="./assets/img/🦆 icon _search_.png" alt="icon">
       </button>
@@ -41,13 +36,10 @@
     <div class="main-p1">
       
         <div class="main-p1_content">
-        <h class="main-p1_text">Your 
-          culinary 
-          masterpieces
-          start here</h>
+          <h1 class="main-p1_text">Your culinary masterpieces start here</h1>
         </div>
         <div class="main-p1_image">
-        <img src="./assets/img/Group 1.svg">
+         <img src="./assets/img/Group 1.svg" />
         </div>
       </div>
     </div>
