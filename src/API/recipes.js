@@ -18,13 +18,13 @@ function searchRecipes(param) { // метод который делает зап
     .catch(error => console.log(error));
 }
 
-btn.addEventListener('click', () => {
+btn.addEventListener('click', () => {  //кнопка поиска рецепта по кухне (#italian)
     const input = document.querySelector('#search_input').value
     const cuisine = input ? `&cuisine=${input}`: ''
     searchRecipes(cuisine)
 })
 
-function addRecipes(array) {
+function addRecipes(array) {    //отображение рецепта на странице
     array.forEach(element => {
         const li = document.createElement('li');
         li.className = "recItem";
@@ -39,6 +39,7 @@ function addRecipes(array) {
         button.addEventListener('click', saveFavorite)
     });
 }
+
 const saveFavorite = (event) => { //ф-ия сохраняет данные в Local Storage
     let array;
     const dataState = event.target.getAttribute("data-state");
@@ -46,7 +47,7 @@ const saveFavorite = (event) => { //ф-ия сохраняет данные в L
     const obj = JSON.parse(dataState)
     const favorite = window.localStorage.getItem('favorite')
     
-    if(favorite){
+    if(favorite){          //проверка добавлен ли рецепт уже в ибранное
         array = JSON.parse(favorite)
 
         const ifTrue = array.some(item => item.id === obj.id);
@@ -62,8 +63,6 @@ const saveFavorite = (event) => { //ф-ия сохраняет данные в L
     window.localStorage.setItem('favorite', JSON.stringify(array))
 }
 
-const div = document.createElement('div');
-    div.className='card';
 
 
 
