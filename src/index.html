@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+​
 
 <head>
     <meta charset="UTF-8">
@@ -7,11 +8,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="./assets/styles/style.scss">
+    <link href="./recipe-info.html">
 </head>
+​
 
 <body>
-    <h1>Hello World!</h1>
-    <script src="./index.js"></script>
+    <header class="header">
+        <div class="search-form">
+            <button class="general-search-icon" type="text"><img class="search-icon-image"
+                    src="./assets/images/lens.svg" alt="lens"></button>
+            <input class="general-search-input" type="text" placeholder="Search">
+        </div>
+    </header>
+    <section class="recipes-container container">
+    </section>
+
+    <section class="randon-recipe-section">
+        <div class="randon-recipe-section__text">Use our random recipe search service if you don't know what you want to
+            make</div>
+        <div class="randon-recipe-section__button">
+            <button class="random-recipe__button" type="button">Random Recipe</button>
+        </div>
+        <div class="container-random-recipe"></div>
+    </section>
+    ​
+
+    ​
+    <script type="module" src="./index.js"></script>
 </body>
+​
 
 </html>
