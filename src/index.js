@@ -4,7 +4,7 @@ const globalSearchInput = document.querySelector('.general-search-input');
 const containerOfRecipeDescription = document.querySelector('.recipe-description-container');
 const containerOfIngredients = document.querySelector('.ingredients-container');
 const containerOfInstructionSteps = document.querySelector('.instructions-container');
-const APIKey = '3115385a8fd74cccafff83f66b0ff84e';
+const APIKey = '6b670efbd0ea4d829a41bdec3f7e5a0a';
 
 // Классы для карточек с рецептами и их инструкций с описанием и ингридиентами
 class RecipeCard {
@@ -19,20 +19,39 @@ class RecipeCard {
     }
     displayRecipeCard() {
         let cardOfRecipe = '';
+        // const obj = {
+        //     id: this.id,
+        //     image: this.image,
+        //     name: this.name
+        // }
+        // const item = JSON.stringify(obj);
+
+        // console.log('displayRecipeCard this.name', this.name)
+        // console.log('displayRecipeCard obj', obj)
+        // console.log('displayRecipeCard item', item)
+     
         cardOfRecipe = `
-        <div class="container__card recipe-card 22" >
+        <div class="container__card recipe-card" >
             <div class="recipe-card__image" id='${this.id}'><img class="recipe-image" src="${this.image}" alt="recipeImage"></div>
-            <div class="recipe-card__title">${this.name}</div>
             
-        </div>`;
+            <div class="recipe-card__title">
+            <div class='addToFavorit' data-name="${this.name}" data-image="${this.image}" data-id="${this.id}" />
+                ${this.name}
+            </div>
+       
+            </div>`;
+
         return cardOfRecipe;
     }
+   
+
     displayRandomRecipeCard() {
         let cardOfRecipe = '';
         cardOfRecipe = `
             <div class="container__card recipe-card 11">
                 <div class="recipe-card__image" id='${this.id}'><img class="recipe-image" src="${this.image}" alt="recipeImage"></div>
                 <div class="recipe-card__title">${this.name}</div>
+                
             </div>`;
         return cardOfRecipe;
     }
@@ -168,6 +187,7 @@ function showSearchResult() {
                     containerOfRecipes.innerHTML += foodCard.displayRecipeCard(foodCard.id, foodCard.image, foodCard.title);
                 });
                 showAllInformationOfRecipe();
+                saveFavoriteHandler();
             }
         })
         .catch(function (error) {
@@ -338,3 +358,39 @@ function handleStarClick(event) {
 if (!savedRating) {
   stars.forEach(star => star.addEventListener('click', handleStarClick));
 }
+ function saveFavorite(event){ //ф-ия сохраняет данные в Local Storage
+
+        let array;
+        const like = event.target;
+        like.classList.toggle('active');
+
+        const name = like.getAttribute("data-name");
+        const image = like.getAttribute("data-image");
+        const id = like.getAttribute("data-id");
+
+        // console.log('saveFavorite dataState', dataState);
+        const obj = {id, name, image}
+        console.log('saveFavorite obj', obj);
+        const favorite = window.localStorage.getItem('favorite')
+        
+        if(favorite){          //проверка добавлен ли рецепт уже в ибранное
+            array = JSON.parse(favorite)
+    
+            const ifTrue = array.some(item => item.id === obj.id);
+            if(ifTrue) {
+                array = array.filter(item => item.id !== obj.id)
+            } else {
+                array.push(obj)
+            }
+    
+        } else {
+            array = [obj];
+        }
+        window.localStorage.setItem('favorite', JSON.stringify(array))
+    }
+    function saveFavoriteHandler () {
+        const buttons = document.querySelectorAll('.addToFavorit')
+        buttons.forEach(button => {
+            button.addEventListener("click",saveFavorite)
+        })
+    }
