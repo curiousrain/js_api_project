@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-​
 
 <head>
     <meta charset="UTF-8">
@@ -10,10 +9,27 @@
     <link rel="stylesheet" href="./assets/styles/style.scss">
     <link href="./recipe-info.html">
 </head>
-​
 
 <body>
-    <header class="header">
+    <header class="header-container">
+        <div class="hamburger-menu">
+            <input id="menu__toggle" type="checkbox" />
+            <label class="menu__btn" for="menu__toggle">
+                <span></span>
+            </label>
+            <ul class="menu__box">
+                <li><a class="menu__item" href="#">Recipes</a></li>
+                <li><a class="menu__item" href="#">Selection</a></li>
+                <li><a class="menu__item" href="#">Advices</a></li>
+                <li><a class="menu__item" href="#">Authors</a></li>
+                <li><a class="menu__item" href="#">About</a></li>
+                <li><a class="menu__item" href="./ingredients-search.html">Search by ingredients</a></li>
+                <li>
+                    <img class="twitter" src="./assets/img/icon-twitter.png" alt="twitter">
+                    <img class="instagram" src="./assets/img/icon-instagram.png" alt="instagram">
+                </li>
+            </ul>
+        </div>
         <div class="search-form">
             <button class="general-search-icon" type="text"><img class="search-icon-image"
                     src="./assets/images/lens.svg" alt="lens"></button>
@@ -22,20 +38,32 @@
     </header>
     <section class="recipes-container container">
     </section>
-
-    <section class="randon-recipe-section">
-        <div class="randon-recipe-section__text">Use our random recipe search service if you don't know what you want to
-            make</div>
-        <div class="randon-recipe-section__button">
-            <button class="random-recipe__button" type="button">Random Recipe</button>
+    <main>
+        <div class="hero-container">
+            <div class="hero-upper-text">
+                <p class="hero-upper-slogan">Your culinary masterpieces start here</p>
+            </div>
+            <div class="hero-background">
+                <img class="hero-background-image" src="./assets/img/background.svg" />
+            </div>
+            <div class="hero-bottom-text">
+                <p class="hero-bottom-slogan">
+                    Here you will find the best recipes,
+                    that you can easily make in your kitchen!
+                </p>
+            </div>
         </div>
-        <div class="container-random-recipe"></div>
-    </section>
-    ​
-
-    ​
+        <section class="randon-recipe-section">
+            <div class="randon-recipe-section__text">Use our random recipe search service if you don't know what you
+                want to
+                make</div>
+            <div class="randon-recipe-section__button">
+                <button class="random-recipe__button" type="button">Random Recipe</button>
+            </div>
+            <div class="container-random-recipe"></div>
+        </section>
+    </main>
     <script type="module" src="./index.js"></script>
 </body>
-​
 
 </html>
