@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/src/assets/styles/style.scss">
+    <link href="https://fonts.googleapis.com/css2?family=Alegreya+Sans:wght@300&family=Inter&display=swap"
+        rel="stylesheet">
+        <style>
+                    h2 {
+            text-align: center;
+            font-family: 'Alegreya Sans';
+            font-size: 32px;
+        }
+
+        p {
+            font-size: 23px;
+            font-family: 'Alegreya Sans';
+            color: white;
+            align-self: center;
+            font-weight: 700;
+            justify-self: center;
+            margin-top: 75px;
+            margin-left: 15px;
+        }
+
+        body {
+            width: 390px;
+            background-color: white;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: start;
+            justify-content: start;
+            padding-bottom: 67.46px;
+            width: 390px;
+            margin: 0px;
+        }
+
+        #img1 {
+            background-image: url(/src/icons/img1.png);
+            max-width: 100%;
+            height: 191px;
+            width: 195px;
+            filter: brightness(90%);
+            border-radius: 30px;
+        }
+
+        #img2 {
+            background-image: url(/src/icons/img3.png);
+            max-width: 100%;
+            height: 400px;
+            width: 186px;
+            justify-self: end;
+            border-radius: 30px;
+            filter: brightness(90%);
+        }
+
+        #img3 {
+            background-image: url(/src/icons/img2.png);
+            max-width: 100%;
+            height: 193px;
+            width: 195px;
+            border-radius: 30px;
+            margin-top: -197px;
+            filter: brightness(90%);
+        }
+
+        #p2 {
+            width: 130px;
+            height: 115px;
+            margin-top: 142px;
+        }
+
+        #Advices {
+            border-top: 2px solid #FF6734;
+            border-bottom: 2px solid #FF6734;
+            ;
+        }
+
+        #footerIMG {
+            height: 125px;
+        }
+
+        footer {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        ul {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            justify-content: center;
+            align-items: center;
+        }
+
+        li {
+            list-style-type: none;
+            font-size: 16px;
+            font-family: 'Alegreya Sans';
+            font-weight: bolder;
+        }
+
+        a {
+            text-decoration: none;
+            color: black;
+        }
+
+        a:hover {
+            background-color: #FF6734;
+            color: white;
+        }
+        </style>
+</head>
+
+<body>
+    <main>
+        <script src="./index.js"></script>
+        <div id="Advices">
+            <h2><a name="advices">Advices</a></h2>
+            <div class='container'>
+                <div id="img1">
+                    <p>How to cook<br> steak</p>
+                </div>
+                <div id="img2">
+                    <p id="p2">What spices should be in your kitchen</p>
+                </div>
+                <div id="img3">
+                    <p>How to make thin pancakes</p>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <ul>
+            <li><a href="">Recipes</a>
+            </li>
+            <li><a href="">Selections</a></li>
+            <li><a href="#advices">Advices</a></li>
+            <li><a href="">Authors</a></li>
+        </ul>
+        <img src="/1.png" alt="leaves" id="footerIMG">
+    </footer>
+</body>
+
+</html>
