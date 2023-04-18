@@ -35,10 +35,10 @@ class RecipeCard {
             <div class="recipe-card__image" id='${this.id}'><img class="recipe-image" src="${this.image}" alt="recipeImage"></div>
             
             <div class="recipe-card__title">
-            <div class='addToFavorit' data-name="${this.name}" data-image="${this.image}" data-id="${this.id}" />
-                ${this.name}
+             <span class='addToFavorit' data-name="${this.name}" data-image="${this.image}" data-id="${this.id}"></span>
+            ${this.name}
             </div>
-       
+            
             </div>`;
 
         return cardOfRecipe;
