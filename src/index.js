@@ -78,7 +78,7 @@ class RecipeDescriptionCard extends RecipeCard {
                     <div class="description-content-container__title">${this.name}</div>
                     <div class="description-content-container__general-info">
                         <div class="recipe-description-card__time">${this.readyTime} min</div>
-                        <div class="recipe-description-card__rating" data-recipe-id="recipe-1">
+                        <div class="recipe-description-card__rating" data-recipe-id="${this.id}">
                             <span class="recipe-description-card__rating__star" data-value="1">${this.rating >= 1 ? '★' : '☆'}</span>
                             <span class="recipe-description-card__rating__star" data-value="2">${this.rating >= 2 ? '★' : '☆'}</span>
                             <span class="recipe-description-card__rating__star" data-value="3">${this.rating >= 3 ? '★' : '☆'}</span>
@@ -315,49 +315,42 @@ recipeInit();
 
 const stars = document.querySelectorAll('.recipe-description-card__rating__star');
 
-function setRating(rating) {
-  localStorage.setItem('recipeRating', rating);
+function setRating(recipeId, rating) {
+    localStorage.setItem(`recipeRating_${recipeId}`, rating);
 }
 
-let savedRating = localStorage.getItem(`recipeRating`);
-
-if (savedRating) {
-  const rating = parseInt(savedRating);
-  stars.forEach((star, index) => {
-    if (index < rating) {
-      star.classList.add('active');
-    } else {
-      star.classList.remove('active');
-    }
-  });
+function getSavedRating(recipeId) {
+    return localStorage.getItem(`recipeRating_${recipeId}`);
 }
 
-function setRating(rating) {
-  localStorage.setItem(`recipeRating`, rating);
-  savedRating = rating;
-}
-
-const saved_Rating = localStorage.getItem(`recipeRating`);
-if (savedRating) {
-  stars.forEach(star => star.removeEventListener('click', handleStarClick));
+function setStarsActive(stars, rating) {
+    stars.forEach((star, index) => {
+        if (index < rating) {
+            star.classList.add('active');
+        } else {
+            star.classList.remove('active');
+        }
+    });
 }
 
 function handleStarClick(event) {
-  const clickedStar = event.currentTarget;
-  const rating = Array.from(stars).indexOf(clickedStar) + 1;
-  setRating(rating);
-  stars.forEach((star, index) => {
-    if (index < rating) {
-      star.classList.add('active');
-    } else {
-      star.classList.remove('active');
-    }
-  });
+    const clickedStar = event.currentTarget;
+    const rating = Array.from(stars).indexOf(clickedStar) + 1;
+    const recipeId = clickedStar.closest('.recipe-description-card__rating').dataset.recipeId;
+    setRating(recipeId, rating);
+    setStarsActive(stars, rating);
 }
 
-if (!savedRating) {
-  stars.forEach(star => star.addEventListener('click', handleStarClick));
-}
+stars.forEach(star => {
+    const recipeId = star.closest('.recipe-description-card__rating').dataset.recipeId;
+    const savedRating = getSavedRating(recipeId);
+    if (savedRating) {
+        const rating = parseInt(savedRating);
+        setStarsActive(stars, rating);
+    }
+    star.addEventListener('click', handleStarClick);
+});
+
  function saveFavorite(event){ //ф-ия сохраняет данные в Local Storage
 
         let array;
