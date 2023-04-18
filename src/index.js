@@ -4,7 +4,7 @@ const globalSearchInput = document.querySelector('.general-search-input');
 const containerOfRecipeDescription = document.querySelector('.recipe-description-container');
 const containerOfIngredients = document.querySelector('.ingredients-container');
 const containerOfInstructionSteps = document.querySelector('.instructions-container');
-const APIKey = '6b670efbd0ea4d829a41bdec3f7e5a0a';
+const APIKey = '30099d303fac4ab0a08b3225e10e9123';
 
 // Классы для карточек с рецептами и их инструкций с описанием и ингридиентами
 class RecipeCard {
@@ -29,7 +29,7 @@ class RecipeCard {
         // console.log('displayRecipeCard this.name', this.name)
         // console.log('displayRecipeCard obj', obj)
         // console.log('displayRecipeCard item', item)
-     
+
         cardOfRecipe = `
         <div class="container__card recipe-card" >
             <div class="recipe-card__image" id='${this.id}'><img class="recipe-image" src="${this.image}" alt="recipeImage"></div>
@@ -43,7 +43,7 @@ class RecipeCard {
 
         return cardOfRecipe;
     }
-   
+
 
     displayRandomRecipeCard() {
         let cardOfRecipe = '';
@@ -215,12 +215,12 @@ function showAllInformationOfRecipe() {
             })
                 .then(response => response.json())
                 .then(function (data) {
-                    if (data.analyzedInstructions.length===0) {
-                        let recipeSource=data.sourceUrl;
+                    if (data.analyzedInstructions.length === 0) {
+                        let recipeSource = data.sourceUrl;
                         window.document.location.href = `${recipeSource}`;
-                    } 
+                    }
                     localStorage.setItem('RecipeData', JSON.stringify(data));
-                    window.document.location = 'recipe-info.html'; 
+                    window.document.location = 'recipe-info.html';
                 })
         })
     });
@@ -277,14 +277,14 @@ function displayRandomRecipe() {
                 })
                     .then(response => response.json())
                     .then(function (data) {
-                        if (data.analyzedInstructions.length===0) {
-                            let recipeSource=data.sourceUrl;
+                        if (data.analyzedInstructions.length === 0) {
+                            let recipeSource = data.sourceUrl;
                             window.document.location.href = `${recipeSource}`;
-                        } 
+                        }
                         localStorage.setItem('RecipeData', JSON.stringify(data));
                         window.document.location = 'recipe-info.html';
                     })
-                    
+
             })
         })
         .catch(function (error) {
@@ -301,12 +301,12 @@ function recipeInit() {
 
     data.extendedIngredients.forEach(item => {
         let recipeIngredients = new RecipeIngredientsCard(item.id, item.image, item.title, item.originalName, item.amount, item.unit);
-        containerOfIngredients.innerHTML+=recipeIngredients.displayRecipeIngredients(recipeIngredients.originalName, recipeIngredients.amount)
+        containerOfIngredients.innerHTML += recipeIngredients.displayRecipeIngredients(recipeIngredients.originalName, recipeIngredients.amount)
     });
     data.analyzedInstructions.forEach(item => {
         for (let step of item.steps) {
             let recipeInstructionSteps = new RecipeInstructionsCard(step.id, step.image, step.title, step.number, step.step);
-            containerOfInstructionSteps.innerHTML+=recipeInstructionSteps.displayRecipeInstructionsStepList(recipeInstructionSteps.number, recipeInstructionSteps.step);
+            containerOfInstructionSteps.innerHTML += recipeInstructionSteps.displayRecipeInstructionsStepList(recipeInstructionSteps.number, recipeInstructionSteps.step);
         }
     });
 }
@@ -351,39 +351,39 @@ stars.forEach(star => {
     star.addEventListener('click', handleStarClick);
 });
 
- function saveFavorite(event){ //ф-ия сохраняет данные в Local Storage
+function saveFavorite(event) { //ф-ия сохраняет данные в Local Storage
 
-        let array;
-        const like = event.target;
-        like.classList.toggle('active');
+    let array;
+    const like = event.target;
+    like.classList.toggle('active');
 
-        const name = like.getAttribute("data-name");
-        const image = like.getAttribute("data-image");
-        const id = like.getAttribute("data-id");
+    const name = like.getAttribute("data-name");
+    const image = like.getAttribute("data-image");
+    const id = like.getAttribute("data-id");
 
-        // console.log('saveFavorite dataState', dataState);
-        const obj = {id, name, image}
-        console.log('saveFavorite obj', obj);
-        const favorite = window.localStorage.getItem('favorite')
-        
-        if(favorite){          //проверка добавлен ли рецепт уже в ибранное
-            array = JSON.parse(favorite)
-    
-            const ifTrue = array.some(item => item.id === obj.id);
-            if(ifTrue) {
-                array = array.filter(item => item.id !== obj.id)
-            } else {
-                array.push(obj)
-            }
-    
+    // console.log('saveFavorite dataState', dataState);
+    const obj = { id, name, image }
+    console.log('saveFavorite obj', obj);
+    const favorite = window.localStorage.getItem('favorite')
+
+    if (favorite) {          //проверка добавлен ли рецепт уже в ибранное
+        array = JSON.parse(favorite)
+
+        const ifTrue = array.some(item => item.id === obj.id);
+        if (ifTrue) {
+            array = array.filter(item => item.id !== obj.id)
         } else {
-            array = [obj];
+            array.push(obj)
         }
-        window.localStorage.setItem('favorite', JSON.stringify(array))
+
+    } else {
+        array = [obj];
     }
-    function saveFavoriteHandler () {
-        const buttons = document.querySelectorAll('.addToFavorit')
-        buttons.forEach(button => {
-            button.addEventListener("click",saveFavorite)
-        })
-    }
+    window.localStorage.setItem('favorite', JSON.stringify(array))
+}
+function saveFavoriteHandler() {
+    const buttons = document.querySelectorAll('.addToFavorit')
+    buttons.forEach(button => {
+        button.addEventListener("click", saveFavorite)
+    })
+}
