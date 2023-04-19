@@ -169,23 +169,28 @@ body {
 
 //хиро контейнер 
 .hero-container {
-    display: flex;
     width: 400px;
+    flex-direction: column;
     justify-content: center;
-    align-items: center;
-    margin-bottom: 47vh;
+    align-items: flex-start;
+    margin-bottom: 7vh;
+    display: flex;
+    padding-top: 5vh;
+    padding-left: 4%;
+    gap: 17px;
+    background-image: url("../images/background.svg");
+    background-repeat: no-repeat;
+    background-position: left 125px top -41px;
+    position: relative;
 }
 
 .hero-upper-text {
-    display: flex;
+    // display: flex;
 }
 
 .hero-upper-slogan {
-    position: absolute;
     width: 175px;
     height: 152px;
-    left: 14px;
-    top: 117px;
     font-family: 'Alegreya';
     font-style: normal;
     font-weight: 500;
@@ -200,10 +205,9 @@ body {
     height: 247px;
     left: 125px;
     top: 63px;
-
 }
 
-.hero-background::before {
+.hero-container::before {
     filter: blur(50px);
     z-index: -1;
     content: " ";
@@ -212,17 +216,13 @@ body {
     background: #d35727cc;
     display: block;
     position: absolute;
-    top: 124px;
+    top: 21px;
     left: 149px
 }
 
 .hero-bottom-text {
-    display: flex;
-    position: absolute;
     width: 265px;
     height: 40px;
-    left: 14px;
-    top: 290px;
     font-family: 'Martel Sans';
     font-style: normal;
     font-weight: 400;

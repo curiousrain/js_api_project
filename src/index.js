@@ -4,7 +4,7 @@ const globalSearchInput = document.querySelector('.general-search-input');
 const containerOfRecipeDescription = document.querySelector('.recipe-description-container');
 const containerOfIngredients = document.querySelector('.ingredients-container');
 const containerOfInstructionSteps = document.querySelector('.instructions-container');
-const APIKey = '30099d303fac4ab0a08b3225e10e9123';
+const APIKey = '';
 
 // Классы для карточек с рецептами и их инструкций с описанием и ингридиентами
 class RecipeCard {
