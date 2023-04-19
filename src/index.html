@@ -7,11 +7,153 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="./assets/styles/style.scss">
+    <link href="./recipe-info.html">
 </head>
 
 <body>
-    <h1>Hello World!</h1>
-    <script src="./index.js"></script>
+    <header class="header-container">
+        <div class="hamburger-menu">
+            <input id="menu__toggle" type="checkbox" />
+            <label class="menu__btn" for="menu__toggle">
+                <span></span>
+            </label>
+            <ul class="menu__box">
+                <li><a class="menu__item" href="#">Recipes</a></li>
+                <li><a class="menu__item" href="#">Selection</a></li>
+                <li><a class="menu__item" href="#">Advices</a></li>
+                <li><a class="menu__item" href="#">Authors</a></li>
+                <li><a class="menu__item" href="#">About</a></li>
+                <li><a class="menu__item" href="./ingredients-search.html">Search by ingredients</a></li>
+                <li>
+                    <img class="twitter" src="./assets/images/icon-twitter.png" alt="twitter">
+                    <img class="instagram" src="./assets/images/icon-instagram.png" alt="instagram">
+                </li>
+            </ul>
+        </div>
+        <div class="search-form">
+            <button class="general-search-icon" type="text"><img class="search-icon-image"
+                    src="./assets/images/lens.svg" alt="lens"></button>
+            <input class="general-search-input" type="text" placeholder="Search">
+        </div>
+    </header>
+    <section class="recipes-container container">
+
+    </section>
+    <main>
+        <div class="hero-container">
+            <div class="hero-upper-text">
+                <p class="hero-upper-slogan">Your culinary masterpieces start here</p>
+            </div>
+            <div class="hero-bottom-text">
+                <p class="hero-bottom-slogan">
+                    Here you will find the best recipes,
+                    that you can easily make in your kitchen!
+                </p>
+            </div>
+        </div>
+        <section class="recipes-menu">
+            <h2 class="recipes-menu-head">Recipes</h2>
+            <div class="recipes-menu-table">
+                <div class="table breakfast">
+                    <a href="#"><img src="./assets/images/recipes-container/breakfast.svg"></a>
+                    <p>Breakfast</p>
+                </div>
+                <div class="table breakfast">
+                    <a href="#"><img src="./assets/images/recipes-container/soup.svg"></a>
+                    <p>Soup</p>
+                </div>
+                <div class="table main">
+                    <a href="#"><img src="./assets/images/recipes-container/main.svg"></a>
+                    <p>Main</p>
+                </div>
+                <div class="table drinks">
+                    <a href="#"><img src="./assets/images/recipes-container/drinks.svg"></a>
+                    <p>Drinks</p>
+                </div>
+                <div class="table sandwiches">
+                    <a href="#"><img src="./assets/images/recipes-container/sandwiches.svg"></a>
+                    <p>Sandwiches</p>
+                </div>
+                <div class="table paste">
+                    <a href="#"><img src="./assets/images/recipes-container/paste.svg"></a>
+                    <p>Paste</p>
+                </div>
+                <div class="table deserts">
+                    <a href="#"><img src="./assets/images/recipes-container/deserts.svg"></a>
+                    <p>Deserts</p>
+                </div>
+                <div class="table salads">
+                    <a href="#"><img src="./assets/images/recipes-container/salads.svg"></a>
+                    <p>Salads</p>
+                </div>
+                <div class="table snacks">
+                    <a href="#"><img src="./assets/images/recipes-container/snacks.svg"></a>
+                    <p>Snacks</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="randon-recipe-section">
+            <div class="randon-recipe-section__text">Use our random recipe search service if you don't know what you
+                want to
+                make</div>
+            <div class="randon-recipe-section__button">
+                <button class="random-recipe__button" type="button">Random Recipe</button>
+            </div>
+            <div class="container-random-recipe"></div>
+        </section>
+
+        <div class="selections">
+            <h1 class="selections__header">Selections</h1>
+            <div class="selections__items">
+                <div class="selections__popular-recipes">
+                    <p>Popular Recipes</p>
+                </div>
+                <div class="selections__holiday-recipes">
+                    <p>Holiday Recipes</p>
+                </div>
+                <div class="selections__healthy-food">
+                    <p>Healthy Food</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="about-project">
+            <h1 class="about-project__header">About Project</h1>
+            <div class="about-project__content">
+                <div class="about-project__text">
+                    Our site has a lot of interesting recipes, of any level of complexity. Interesting recipe selections
+                    will help you find the right dish, and tips from our chefs will help in the preparation of even the
+                    most complicated recipe.
+                </div>
+                <img class="about-project__image" src="/src/assets/images/about-project/about-project-image.png">
+            </div>
+        </div>
+        <div id="Advices">
+            <h2 class="advice-title"><a name="advices" class="">Advices</a></h2>
+            <div class="advice-container">
+                <div id="advice-first">
+                    <p class="advice-container-text">How to cook<br> steak</p>
+                </div>
+                <div id="advice-second">
+                    <p id="advice-second-text">What spices should be in your kitchen</p>
+                </div>
+                <div id="advice-third">
+                    <p class="advice-container-text">How to make thin pancakes</p>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <ul class="footer-container">
+            <li class="footer-container-item"><a href="" class="footer-container-link">Recipes</a></li>
+            <li class="footer-container-item"><a href="" class="footer-container-link">Selections</a></li>
+            <li class="footer-container-item"><a href="#advices" class="footer-container-link">Advices</a></li>
+            <li class="footer-container-item"><a href="" class="footer-container-link">Authors</a></li>
+        </ul>
+        <img src="./assets/images/advice-container/footer-pic.png" alt="leaves" id="footer-image">
+    </footer>
+    <script type="module" src="./index.js"></script>
 </body>
 
 </html>
