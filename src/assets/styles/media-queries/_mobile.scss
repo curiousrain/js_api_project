@@ -405,7 +405,6 @@ body {
     margin-top: 25px;
     padding-left: 25px;
     padding-right: 25px;
-
     font-family: Martel Sans;
     font-size: 16px;
     font-weight: 400;
@@ -417,6 +416,11 @@ body {
     width: 43vw;
     object-fit: contain;
     padding-right: 5px;
+}
+
+.about-project__link {
+    text-decoration: none;
+    color: #000;
 }
 
 // для отображения подробной информации о рецепте
