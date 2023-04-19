@@ -55,6 +55,39 @@ text-align: center;
     display: none;
 }
 
+.recipes-menu {
+    border-top: 2px solid $dark-orange;
+    border-bottom: 2px solid $dark-orange;
+}
+
+.recipes-menu-head {
+    margin-top: 7%;
+    margin-left: 33%;
+    margin-bottom: 5%;
+    font-family: $alegreya-font;
+    font-size: 7.72vw;
+    font-weight: 500;
+    line-height: 38px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #000000;
+}
+
+.recipes-menu-table {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    text-align: center;
+    font-family: $martel-font;
+    font-size: 3.86vw;
+    font-weight: 400;
+    line-height: 29px;
+    letter-spacing: 0em;
+    margin-bottom: 7%;
+}
+
+.recipes-menu-table img {
+    width: 70%;
+}
 
 // для вывода общего поиска
 
@@ -91,17 +124,21 @@ text-align: center;
 
 // для кнопки случайного рецепта
 
-.randon-recipe-section{
+.random-recipe-section{
     margin-top: 10%;
     height: max-content;
-    border-top: 2px solid $dark-orange;
-    border-bottom: 2px solid $dark-orange;
     font-family: $martel-font;
     font-size: 3.86vw;
     display: flex;
     flex-direction: column;
     align-items: center;
     row-gap: 5vh;
+    border-bottom: 2px solid $dark-orange;
+}
+
+.random-recipe-section__text {
+    text-align: center;
+    padding-left: 10%;
 }
 
 .random-recipe__button{
