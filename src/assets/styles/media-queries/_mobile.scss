@@ -231,6 +231,39 @@ body {
     color: #000000;
 }
 
+.recipes-menu {
+    border-top: 2px solid $dark-orange;
+}
+
+.recipes-menu-head {
+    margin-top: 7%;
+    margin-left: 35%;
+    margin-bottom: 5%;
+    font-family: $alegreya-font;
+    font-size: 7.72vw;
+    font-weight: 500;
+    line-height: 38px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #000000;
+}
+
+.recipes-menu-table {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    text-align: center;
+    vertical-align: text-top;
+    font-family: $martel-font;
+    font-size: 3.86vw;
+    font-weight: 400;
+    line-height: 29px;
+    letter-spacing: 0em;
+    margin-bottom: 7%;
+}
+
+.recipes-menu-table img {
+    height: 5.3em;
+}
 
 // для вывода общего поиска
 
@@ -265,8 +298,8 @@ body {
     padding-bottom: 3%;
 }
 
-
 // для кнопки случайного рецепта
+
 
 .randon-recipe-section {
     margin-top: 10%;
@@ -765,8 +798,8 @@ body {
     grid-template-columns: 1fr 1fr;
     align-items: start;
     justify-content: start;
-    padding-bottom: 67.46px;
-    width: 390px;
+    padding-bottom: 7%;
+    width: 100%;
     margin: 0px;
 }
 
@@ -774,7 +807,6 @@ body {
     background-image: url("../images/advice-container/advice-picture-1.png");
     max-width: 100%;
     height: 191px;
-    width: 195px;
     filter: brightness(90%);
     border-radius: 30px;
 }
@@ -784,7 +816,7 @@ body {
     background-repeat: no-repeat;
     max-width: 100%;
     height: 400px;
-    width: 186px;
+    width: 168px;
     justify-self: end;
     border-radius: 30px;
     filter: brightness(90%);
@@ -794,7 +826,6 @@ body {
     background-image: url("../images/advice-container/advice-picture-3.png");
     max-width: 100%;
     height: 193px;
-    width: 195px;
     border-radius: 30px;
     margin-top: -197px;
     filter: brightness(90%);
@@ -808,7 +839,7 @@ body {
 
 #Advices {
     border-bottom: 2px solid #FF6734;
-    width: 400px;
+    width: 100%;
     background-color: white;
     padding: 0 10px;
 }
@@ -818,8 +849,6 @@ body {
 }
 
 footer {
-    // display: grid;
-    // grid-template-columns: repeat(2, 1fr);
     display: flex;
     justify-content: center;
 }
