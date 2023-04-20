@@ -1,2 +1,2 @@
 export const apiUrl = "https://api.spoonacular.com/recipes/";
-export const apiKey = 'apiKey=2cb2a6987d224409bfcc2b30cd43835c';
+export const apiKey = 'apiKey=3115385a8fd74cccafff83f66b0ff84e';

@@ -184,10 +184,6 @@ body {
     position: relative;
 }
 
-.hero-upper-text {
-    // display: flex;
-}
-
 .hero-upper-slogan {
     width: 175px;
     height: 152px;
@@ -690,6 +686,7 @@ body {
     font-family: $martel-font;
     font-size: 3.86vw;
     display: flex;
+    position: relative;
 }
 
 
@@ -718,8 +715,8 @@ body {
     background: url(https://prog-time.ru/wp-content/uploads/2022/06/img_favorite_icon.png) no-repeat;
     animation: 1s steps(28, end) fave-heart;
     position: absolute;
-    top: 85%;
-    right: -13px;
+    top: 93%;
+    right: -52px;
     transform: translate(-50%, -50%)
 }
 

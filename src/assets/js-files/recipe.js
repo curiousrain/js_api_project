@@ -1,5 +1,5 @@
 import { apiUrl, apiKey } from "./api";
-import recipePage from "../../recipe.html";
+import showSimilarRecipe from "./similar-recipes";
 const recipeContainer = document.getElementById('recipe-container');
 const recipeId = document.location.hash.slice(1);
 const similarRecipes = document.getElementById('similar-recipes');
@@ -81,44 +81,21 @@ function CurrentRecipe(recipe) {
         HTML += `<p class = "recipe-source">Sorry, we can't provide you with instructions. For more information visit <a href = "${recipe.sourceUrl}"> recipe source</a></p>`
     }
     recipeContainer.innerHTML = HTML;
+    const stars = recipeContainer.querySelectorAll('.recipe-description-card__rating__star');
+    stars.forEach(star => {
+        const savedRating = getSavedRating(recipe.id);
+        if (savedRating) {
+            const rating = parseInt(savedRating);
+            setStarsActive(stars, rating);
+        }
+        star.addEventListener('click', () => handleStarClick(star, stars));
+    });
 }
 
 
-async function getSimilarRecipe() {
-    const urlToSimilarRecipe = `${apiUrl}${recipeId}/similar?${apiKey}`;
-    const SimilarRecipeResponse = await fetch(urlToSimilarRecipe);
-    if (!SimilarRecipeResponse.ok) {
-        throw new Error(SimilarRecipeResponse.statusText);
-    }
-    const SimilarRecipeObject = await SimilarRecipeResponse.json();
-    return SimilarRecipeObject;
-}
-
-getSimilarRecipe()
-    .then((response) => {
-        SimilarToThisRecipe(response);
-    })
-    .catch(e => console.log(e));
+showSimilarRecipe(similarRecipes);
 
 
-function SimilarToThisRecipe(array) {
-    const SimilarRecipesInformation = array.map((element) =>
-        `<div class = "similar-recipe-container-content">
-        <p class = "similar-recipe-container__title"><a class = "similar-recipe-container__link" href = "${recipePage}#${element.id}">${element.title}</a></p>
-        <p class="similar-recipe-container__time">${element.readyInMinutes} min</p>
-        </div>`
-    ).join('');
-    let HTML = `
-    <div class = "similar-recipe-general-container">
-    <p class = "similar-recipe-general-container__title">Similar recipes</p>
-    <div class ="similar-recipe-container">          
-     ${SimilarRecipesInformation}
-    </div>
-    </div>`
-    similarRecipes.innerHTML = HTML;
-}
-
-const stars = document.querySelectorAll('.recipe-description-card__rating__star');
 
 function setRating(recipeId, rating) {
     localStorage.setItem(`recipeRating_${recipeId}`, rating);
@@ -138,20 +115,10 @@ function setStarsActive(stars, rating) {
     });
 }
 
-function handleStarClick(event) {
-    const clickedStar = event.currentTarget;
-    const rating = Array.from(stars).indexOf(clickedStar) + 1;
-    const recipeId = clickedStar.closest('.recipe-description-card__rating').dataset.recipeId;
+function handleStarClick(star, stars) {
+    const rating = Array.from(stars).indexOf(star) + 1;
+    const recipeId = star.closest('.recipe-description-card__rating').dataset.recipeId;
     setRating(recipeId, rating);
     setStarsActive(stars, rating);
 }
 
-stars.forEach(star => {
-    const recipeId = star.closest('.recipe-description-card__rating').dataset.recipeId;
-    const savedRating = getSavedRating(recipeId);
-    if (savedRating) {
-        const rating = parseInt(savedRating);
-        setStarsActive(stars, rating);
-    }
-    star.addEventListener('click', handleStarClick);
-});
