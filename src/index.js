@@ -5,7 +5,8 @@ const globalSearchInput = document.querySelector('.general-search-input');
 const containerOfRecipeDescription = document.querySelector('.recipe-description-container');
 const containerOfIngredients = document.querySelector('.ingredients-container');
 const containerOfInstructionSteps = document.querySelector('.instructions-container');
-const APIKey = '';
+const similarRecipeContainer = document.querySelector('.similar-container');
+const APIKey = '8a0c428178c34d12977b0fba4a1b612e';
 
 // Функции и запросы: поиск и отображение информации с названием, ингридиентами и пошаговой инструкцией при клике на кнопку View Recipe
 // Функция для отображения карточек с рецептами по результатам поиска
@@ -51,10 +52,14 @@ function showSearchResult() {
         })
 }
 
-// Функция для отображение информации с названием, ингридиентами и пошаговой инструкцией при клике на кнопку View Recipe
+// Функция для отображение информации с названием, ингридиентами и пошаговой инструкцией при клике на картинку с рецептом
 function showAllInformationOfRecipe() {
     const recipeLinks = document.querySelectorAll('.recipe-card__image');
-    recipeLinks.forEach((link) => {
+    displayAllInformationOfRecipe(recipeLinks);
+}
+
+const displayAllInformationOfRecipe = (listOfItems) => {
+    listOfItems.forEach((link) => {
         link.addEventListener('click', function (e) {
             e.preventDefault();
             const recipeId = e.currentTarget.id;
@@ -72,6 +77,7 @@ function showAllInformationOfRecipe() {
         })
     });
 }
+
 
 function getOptions(word, recipes) {
     return recipes.filter(r => {
@@ -135,10 +141,33 @@ function displayRandomRecipe() {
         })
 }
 
+//Отображение похожих рецептов (с возможностью перехода на выбранный рецепт)
+const findSimilarRecipes = (id) => {
+    const similarUrl = `https://api.spoonacular.com/recipes/${id}/similar?apiKey=${APIKey}&number=4`;
+    fetch(similarUrl, {
+        method: "GET",
+        withCredentials: true,
+        headers: {
+            "Content-Type": "application/json",
+        }
+    })
+        .then(resp => resp.json())
+        .then(function (items) {
+            for (let item of items) {
+            similarRecipeContainer.innerHTML += `<div class='similar-container__content' id='${item.id}'>
+                                                    <div class='similar-container__recipe-title'>${item.title}</div>    
+                                                    <div class='similar-container__recipe-time'>${item.readyInMinutes} min</div>
+                                                </div>`;
+                                                }
+            const similarRecipeLinks = document.querySelectorAll('.similar-container__content');
+            displayAllInformationOfRecipe(similarRecipeLinks);
+        });
+}
+
 
 // Отображение рецепта на другой странице
 function recipeInit() {
-    const data = JSON.parse(localStorage.getItem('RecipeData')) //Z - используем JSON.parse, чтобы вытащить объект из стрингового значения
+    const data = JSON.parse(localStorage.getItem('RecipeData')) 
     let recipeDescription = new RecipeDescriptionCard(data.id, data.image, data.title, data.readyInMinutes, data.servings);
     containerOfRecipeDescription.innerHTML = recipeDescription.displayRecipeDescription(recipeDescription.id, recipeDescription.image, recipeDescription.title, recipeDescription.readyInMinutes, recipeDescription.servings);
 
@@ -146,13 +175,15 @@ function recipeInit() {
         let recipeIngredients = new RecipeIngredientsCard(item.id, item.image, item.title, item.originalName, item.amount, item.unit);
         containerOfIngredients.innerHTML += recipeIngredients.displayRecipeIngredients(recipeIngredients.originalName, recipeIngredients.amount)
     });
+    findSimilarRecipes(data.id);
+    return data.analyzedInstructions.length === 0 ? containerOfInstructionSteps.innerHTML = `<div class='source'>You can find instructions here: <a href='${data.sourceUrl}'>${data.sourceUrl}</a></div>` :
     data.analyzedInstructions.forEach(item => {
         for (let step of item.steps) {
                 let recipeInstructionSteps = new RecipeInstructionsCard(step.id, step.image, step.title, step.number, step.step);
                 containerOfInstructionSteps.innerHTML += recipeInstructionSteps.displayRecipeInstructionsStepList(recipeInstructionSteps.number, recipeInstructionSteps.step);  
         }
     });
-    
+
 }
 
 recipeInit();

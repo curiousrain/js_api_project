@@ -597,6 +597,55 @@ body {
     padding: 10% 0 10% 0;
 }
 
+.source{
+    text-align: center;
+    font-family: $alegreya-font;
+    font-size: 5.5vw;
+    padding: 0 10px 0 10px;
+    & a{
+        font-size: 4vw;
+        cursor: pointer;
+    }
+}
+
+.similar-container__heading{
+    text-align: center;
+    font-size: 5.5vw;
+    font-family: $alegreya-font;
+    padding: 8% 0 3% 0;
+}
+
+.similar-container{
+    display: flex;
+    flex-direction: column;
+    gap: 3vw;
+    :hover{
+        background-color: $dark-orange;
+        color: #fff;
+        cursor: pointer;
+    }
+}
+
+.similar-container__recipe-time{
+    font-weight: 600;
+}
+
+.similar-container__recipe-title{
+    font-family: $martel-font;
+}
+
+.similar-container__content{
+    display: flex;
+    flex-direction: column;
+    font-family: $alegreya-font;
+    font-size: 3.8vw;
+    padding: 3%;
+    gap: 0.3vw;
+    border: 2px solid $bright-orange;
+    margin: 0 1%;
+}
+
+
 // для кнопки добавления в избранное
 
 .addToFavorit {
