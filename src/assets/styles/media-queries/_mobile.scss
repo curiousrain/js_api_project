@@ -597,44 +597,46 @@ body {
     padding: 10% 0 10% 0;
 }
 
-.source{
+.source {
     text-align: center;
     font-family: $alegreya-font;
     font-size: 5.5vw;
     padding: 0 10px 0 10px;
-    & a{
+
+    & a {
         font-size: 4vw;
         cursor: pointer;
     }
 }
 
-.similar-container__heading{
+.similar-container__heading {
     text-align: center;
     font-size: 5.5vw;
     font-family: $alegreya-font;
     padding: 8% 0 3% 0;
 }
 
-.similar-container{
+.similar-container {
     display: flex;
     flex-direction: column;
     gap: 3vw;
-    :hover{
+
+    :hover {
         background-color: $dark-orange;
         color: #fff;
         cursor: pointer;
     }
 }
 
-.similar-container__recipe-time{
+.similar-container__recipe-time {
     font-weight: 600;
 }
 
-.similar-container__recipe-title{
+.similar-container__recipe-title {
     font-family: $martel-font;
 }
 
-.similar-container__content{
+.similar-container__content {
     display: flex;
     flex-direction: column;
     font-family: $alegreya-font;
@@ -644,6 +646,7 @@ body {
     border: 2px solid $bright-orange;
     margin: 0 1%;
 }
+
 
 
 // для кнопки добавления в избранное
@@ -779,7 +782,7 @@ body {
     flex-direction: column;
     align-items: center;
     margin-bottom: 5%;
-    padding-top: 5%;
+    padding-top: 1%;
     border-top: 1px solid #d35727;
 }
 
@@ -791,32 +794,41 @@ body {
 
 .similar-recipe-container {
     margin: 5% 0;
-    background-color: #d35727;
 }
 
 .similar-recipe-container-content {
-    display: flex;
+    border: 2px solid #ff6734;
     flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    padding: 5%;
-    border: 1px solid white;
+    gap: 0.4vw;
+    margin: 2%;
+    padding: 3%;
+    font-family: Alegreya Sans, sans-serif;
+    font-size: 3.8vw;
+    display: flex;
 }
 
-.similar-recipe-container__title {
-    text-align: center;
-    font-family: $alegreya-font;
-    font-size: 5vw;
-}
 
 .similar-recipe-container__link {
     text-decoration: none;
-    color: white;
+    color: #000;
+    font-family: Martel Sans, sans-serif;
 }
 
 .similar-recipe-container__time {
+    font-weight: 600;
+}
+
+
+.recipe-source {
+    text-align: center;
     font-family: $alegreya-font;
-    font-size: 5vw;
+    font-size: 5.5vw;
+    padding: 24px 13px;
+
+    & a {
+        font-size: 5.5vw;
+        cursor: pointer;
+    }
 }
 
 //advice&footer

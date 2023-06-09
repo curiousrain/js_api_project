@@ -93,7 +93,7 @@ function CurrentRecipe(recipe) {
 }
 
 
-showSimilarRecipe(similarRecipes);
+showSimilarRecipe(similarRecipes, recipeId);
 
 
 

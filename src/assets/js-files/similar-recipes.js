@@ -1,8 +1,9 @@
 
 import recipePage from "../../recipe.html";
+import { apiUrl, apiKey } from "./api";
 
 //async function getSimilarRecipe не экспортируем!!!
-async function getRecipeFromApi() {
+async function getRecipeFromApi(recipeId) {
     const urlToSimilarRecipe = `${apiUrl}${recipeId}/similar?${apiKey}`;
     const SimilarRecipeResponse = await fetch(urlToSimilarRecipe);
     if (!SimilarRecipeResponse.ok) {
@@ -12,8 +13,8 @@ async function getRecipeFromApi() {
     return SimilarRecipeObject;
 }
 
-export default function showSimilarRecipe(htmlContainer) {
-    getRecipeFromApi()
+export default function showSimilarRecipe(htmlContainer, recipeId) {
+    getRecipeFromApi(recipeId)
         .then((response) => {
             renderHtml(response, htmlContainer);
         })
@@ -24,13 +25,13 @@ export default function showSimilarRecipe(htmlContainer) {
 function renderHtml(array, htmlContainer) {
     const SimilarRecipesInformation = array.map((element) =>
         `<div class = "similar-recipe-container-content">
-        <p class = "similar-recipe-container__title"><a class = "similar-recipe-container__link" href = "${recipePage}#${element.id}">${element.title}</a></p>
+        <p class = "similar-container__recipe-title"><a class = "similar-recipe-container__link" href = "${recipePage}#${element.id}">${element.title}</a></p>
         <p class="similar-recipe-container__time">${element.readyInMinutes} min</p>
         </div>`
     ).join('');
     let HTML = `
     <div class = "similar-recipe-general-container">
-    <p class = "similar-recipe-general-container__title">Similar recipes</p>
+    <p class = "similar-container__heading">Similar recipes</p>
     <div class ="similar-recipe-container">          
      ${SimilarRecipesInformation}
     </div>
